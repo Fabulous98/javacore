@@ -17,10 +17,10 @@ public class Fibonacci {
 	int value;
 	
 	// Hàm khởi tạo
-	Fibonacci(int n){
-		this.fibNumber = n;
-		this.value = this.findFibonacci();
-	}
+		Fibonacci(int n){
+			this.fibNumber = n;
+			this.value = this.findFibonacci();
+		}
 	
 	/**
 	 * Phương thức tìm số Fibonacci thứ n
@@ -28,16 +28,16 @@ public class Fibonacci {
 	 */
 	public int findFibonacci(){
 		
-	// Tạo một mảng có 50 phần tử
-	int[] arrFib = new int [50];
-	int i, k;
+		// Tạo một mảng có 50 phần tử
+		int[] arrFib = new int [50];
+		int i, k;
 	
 		k=this.fibNumber;
 		
-		// Khởi tạo 3 số fibonacci đầu tiên
-		arrFib[0]=0; 
-		arrFib[1]=1; 
-		arrFib[2]=1;
+			// Khởi tạo 3 số fibonacci đầu tiên
+			arrFib[0]=0; 
+			arrFib[1]=1; 
+			arrFib[2]=1;
 		// Tính toán các số fibonacci đến số thứ n
 		for (i=1; i<=k-1; i++) {
 			arrFib[i+1] = arrFib[i] + arrFib[i-1];
@@ -60,9 +60,9 @@ public class Fibonacci {
 		// Tạo một thể hiện của lớp Fibonacci với đầu vào là n
 		Fibonacci m = new Fibonacci(n);
 			
-			if (n<0) System.out.print("Error");
+		if (n<0) System.out.print("Error");
 
-		System.out.println("So Fibonacci thu " + n + " la: " + m.value);
+			System.out.println("So Fibonacci thu " + n + " la: " + m.value);
 		
 	}
 

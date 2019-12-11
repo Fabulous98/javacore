@@ -29,9 +29,10 @@ public class ListNumber {
 		Scanner scan = new Scanner(System.in);
 		float[] a = new float[n];
 		System.out.println("Nhap cac phan tu cua mang: ");
-		for (int i=0; i<n; i++) {
-			a[i] = scan.nextFloat();
-		}
+		
+			for (int i=0; i<n; i++) {
+				a[i] = scan.nextFloat();
+			}
 
 		System.out.println("Cac so xuat hien dung 2 lan la: ");
 			int dem=0;
@@ -41,19 +42,18 @@ public class ListNumber {
 					dem++;
 			}
 			
-			if (dem == 1) System.out.print(a[0]+" ");
+		if (dem == 1) System.out.print(a[0]+" ");
 			
 			for (int i=1; i<n; i++) {
 				dem=0;
-			for (int j=i+1; j<n; j++) {
-				if (a[i] == a [j] && a[i] != a[0]) {
-					dem++; a[j] = a[0];
+				for (int j=i+1; j<n; j++) {
+					if (a[i] == a [j] && a[i] != a[0]) {
+						dem++; a[j] = a[0];
+					}
 				}
-				//System.out.println(dem);
-			}
 			
 			if (dem == 1) System.out.print(a[i] + " ");
-		}
+			}
 		
 	}
 
