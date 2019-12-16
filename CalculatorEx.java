@@ -6,7 +6,7 @@
 import java.util.*;
 
 /**
- * Chương trình xử lý chuỗi số, tính toán và xử lý ngoại lệ
+ * Chương trình tính toán với 2 số nhập từ bàn phím dạng chuỗi
  * @author MDung
  */
 public class CalculatorEx {
@@ -78,7 +78,7 @@ public class CalculatorEx {
 	}
 	
 	/**
-	 * tính thương 2 số
+	 * tính thương hai số
 	 * @param a số bị chia
 	 * @param b số chia
 	 */
@@ -94,11 +94,12 @@ public class CalculatorEx {
 	
 	/**
 	 * tính căn bậc 2 
-	 * @param a
+	 * @param a - Số cần tính căn bậc 2
+	 * @throws ArithmeticException
 	 */
 	public static void square(int a) throws ArithmeticException {
 		if (a < 0) {
-			throw new ArithmeticException("Error Số âm!");
+			throw new ArithmeticException("Error, hay nhap so khong am!");
 		}
 		try {
 			float squa = (float) Math.sqrt(a);
