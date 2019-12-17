@@ -115,6 +115,12 @@ end$$
 delimiter ;
 call dsnhanvien(5);
 
+insert into nhanvien values();
+
+select 'abc' like '%mn%';
+
+
+
 select p.tenphong
 from phongban p inner join nhanvien n using(maphong)
 group by p.MaPhong having count(n.manhanvien) >= all(select count(n2.manhanvien)
@@ -122,8 +128,76 @@ from phongban p2 inner join nhanvien n2
 using(maphong)
 group by p2.maphong
 );
+
+set @x := 5;
+select @x;
+
 select @stt:=@stt+1 as 'So TT',
 n.TenNhanVien, n.GioiTinh
 from nhanvien n, (select @stt:=0) d;
 
 select @stt;
+
+select n.tennhanvien,
+case n.gioitinh when 'M' then 'Nam'
+when 'f' then 'Nu'
+end as 'Gioi Tinh'
+from nhanvien n;
+
+#Thong ke so nhan vien cua moi phong ban theo gioi tinh
+#cross tab query
+
+select p.tenphong,
+	   count(case when n.gioitinh='M' then n.manhanvien else null end) as 'So NV Nam',
+	   count(case when n.gioitinh='F' then n.manhanvien else null end) as 'So NV Nu',
+	   count(n.manhanvien) as 'tong so NV'
+from nhanvien n inner join phongban p
+					  using(Maphong)
+group by p.maphong;
+
+select p.tenphong,
+	   count(case when n.luong >= 25000 then n.manhanvien else null end) as 'Thu nhap tot',
+	   count(case when n.luong < 25000 then n.manhanvien else null end) as 'Du song'
+	   
+from nhanvien n inner join phongban p
+					  using(Maphong)
+group by p.maphong;
+
+delimiter $$
+create procedure dsnv2(in mp int)
+
+begin
+	if exists(select * from phongban p
+					where p.maphong = mp) then
+	select *
+	from nhanvien n
+	where n.Maphong = mp;
+	else
+		select 'Khong ton tai'
+		as 'Thong bao';
+	end if;
+end$$
+
+delimiter ;
+
+call dsnv2(15);
+
+select * from phongban p;
+
+
+delimiter $$
+
+create trigger onInsertPhongban
+before insert
+on phongban for each row
+begin
+	if new.TenPhong is null then
+	set new.TenPhong = 'Phong ban moi';
+	end if;
+end$$
+
+delimiter ;
+
+
+
+
