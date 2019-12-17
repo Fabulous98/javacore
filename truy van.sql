@@ -122,3 +122,8 @@ from phongban p2 inner join nhanvien n2
 using(maphong)
 group by p2.maphong
 );
+select @stt:=@stt+1 as 'So TT',
+n.TenNhanVien, n.GioiTinh
+from nhanvien n, (select @stt:=0) d;
+
+select @stt;
