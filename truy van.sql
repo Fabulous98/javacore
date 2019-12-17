@@ -1,4 +1,4 @@
-#1
+﻿#1
 select * from nhanvien as n order by n.tennhanvien desc;
 #2 Lập danh sách sinh viên có tên bắt đầu bằng H ( đầy đủ )
 # Nhan vien co ten 2 ky tu
@@ -114,3 +114,11 @@ end$$
 
 delimiter ;
 call dsnhanvien(5);
+
+select p.tenphong
+from phongban p inner join nhanvien n using(maphong)
+group by p.MaPhong having count(n.manhanvien) >= all(select count(n2.manhanvien)
+from phongban p2 inner join nhanvien n2
+using(maphong)
+group by p2.maphong
+);
