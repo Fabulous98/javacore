@@ -198,6 +198,56 @@ end$$
 
 delimiter ;
 
+create table nhanvien_log (
+	manv char(9) default null,
+	luong_cu double default null,
+	luong_moi double default null,
+	taikhoan varchar(30) default null,
+	thoidiem datetime default null
+);
+
+delimiter $$
+create trigger onUpdateNhanvien
+after update
+on nhanvien for each row
+begin
+	insert into nhanvien_log
+	values(new.MaNhanVien, old.Luong,
+			new.Luong, user(), now());
+end$$
+
+delimiter ;
+
+select * from nhanvien;
+
+update nhanvien
+set Luong = 90000000
+where MaNhanVien = '123456789';
+
+select * from nhanvien_log;
+
+
+create user 'la24pm01'@'localhost'
+identified by '12345678'; 
+
+grant all privileges
+on la24pm01.*
+to 'la24pm01'@'localhost';
+
+revoke all privileges
+on la24pm01.nhanvien
+from 'la24pm01'@'localhost';
+
+#Tao tai khoan test cho phep truy cap tu may bat ky mat khau 1234567
+
+create user 'test'@'%'
+identified by '1234567';
+
+grant all privileges
+on la24pm01.*
+to 'test'@'%';
+
+
 
 
 
