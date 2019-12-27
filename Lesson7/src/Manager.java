@@ -73,12 +73,14 @@ public class Manager {
 		}
 
 		try {
+			
 			File file = new File(path);
-			FileOutputStream fout = new FileOutputStream(file);
-			byte[] buff = text.getBytes();
-			fout.write(buff);
-			fout.close();
-			System.out.println("Đã ghi thành công");
+			file.createNewFile();
+		    FileWriter writer = new FileWriter(file); 
+		      // ghi noi dung vao file
+		      writer.write(text); 
+		      writer.flush();
+		      writer.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -91,15 +93,12 @@ public class Manager {
 	public String readFile() {
 		String chuoi = "";
 		try {
-			File file = new File(path);
-			FileInputStream fin = new FileInputStream(file);
-			byte[] buff = new byte[1024];
-			int len = fin.read(buff);
-			while (len > 0) {
-				chuoi += new String(buff, 0, len);
-				len = fin.read(buff);
+			FileReader fr = new FileReader(path);
+			int i;
+			while((i = fr.read())!=-1) {
+				chuoi+=(char)i;
 			}
-			fin.close();
+			fr.close();
 			System.out.println("Đã đọc file thành công!");
 		} catch (IOException e) {
 			e.printStackTrace();
