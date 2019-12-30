@@ -247,7 +247,7 @@ grant all privileges
 on la24pm01.*
 to 'test'@'%';
 
-select * from nhanvien where nhanvien.luong > 25000;
+select concat(Honhanvien,' ', Tenlot,' ', Tennhanvien) as 'Hovaten', Luong from nhanvien where nhanvien.luong > 25000;
 select * from nhanvien where month(nhanvien.ngaysinh) = 6;
 select phongban.tenphong, maphong, count(manhanvien) as 'So nhan vien'
 from nhanvien inner join phongban using (maphong)
