@@ -247,6 +247,24 @@ grant all privileges
 on la24pm01.*
 to 'test'@'%';
 
+select * from nhanvien where nhanvien.luong > 25000;
+select * from nhanvien where month(nhanvien.ngaysinh) = 6;
+select phongban.tenphong, maphong, count(manhanvien) as 'So nhan vien'
+from nhanvien inner join phongban using (maphong)
+group by maphong having count(manhanvien) >3;
+
+select phongban.tenphong, maphong, count(manhanvien) as 'So nhan vien'
+from nhanvien inner join phongban using (maphong)
+group by maphong having count(manhanvien) >3;
+select p.tenphong,
+	   count(case when n.gioitinh='M' then n.manhanvien else null end) as 'So NV Nam',
+	   count(case when n.gioitinh='F' then n.manhanvien else null end) as 'So NV Nu',
+	   count(n.manhanvien) as 'tong so NV'
+from nhanvien n inner join phongban p
+					  using(Maphong)
+group by p.maphong;
+
+
 
 
 
