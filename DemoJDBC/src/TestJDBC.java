@@ -29,22 +29,29 @@ public class TestJDBC {
 			stt = con.createStatement();
 			// Thuc thi truy van ResultSet
 			
-			/* Comment */ System.out.println("--------------------------------------\nIn thong tin nhan vien co luong > 25000\n--------------------------------------");
-			
+			/* Comment */ System.out.println("--------------------------------------\n"
+											+ "In thong tin nhan vien co luong > 25000"
+											+ "\n--------------------------------------");
+									
 						ResultSet rs= stt.executeQuery("select concat(Honhanvien,' ', Tenlot,' ', Tennhanvien) as 'Hovaten', Luong "
 													 + "from nhanvien where nhanvien.luong > 25000");
 						while (rs.next()) {
 							System.out.println(rs.getString(1)+ " " + rs.getInt(2));
 						}
 			
-			/* Comment */ System.out.println("--------------------------------------\nIn thong tin nhan vien sinh vao thang 6\n--------------------------------------");
-						
-						rs= stt.executeQuery("select concat(Honhanvien,' ', Tenlot,' ', Tennhanvien) as 'Hovaten', ngaysinh from nhanvien where month(nhanvien.ngaysinh) = 6");
+			/* Comment */ System.out.println("--------------------------------------\n"
+											+ "In thong tin nhan vien sinh vao thang 6"
+											+ "\n--------------------------------------");
+												
+						rs= stt.executeQuery("select concat(Honhanvien,' ', Tenlot,' ', Tennhanvien) as 'Hovaten', "
+											+ "ngaysinh from nhanvien where month(nhanvien.ngaysinh) = 6");
 						while (rs.next()) {
 							System.out.println(rs.getString(1)+ " " + rs.getString(2));
 						}
 			
-			/* Comment */ System.out.println("--------------------------------------\nTim phong ban co > 3 nhan vien\n--------------------------------------");
+			/* Comment */ System.out.println("--------------------------------------\n"
+											+ "Tim phong ban co > 3 nhan vien"
+											+ "\n--------------------------------------");
 			
 						rs= stt.executeQuery("select phongban.tenphong, maphong, count(manhanvien) as 'So nhan vien'\r\n" + 
 									  		 "from nhanvien inner join phongban using (maphong)\r\n" + 
@@ -53,7 +60,9 @@ public class TestJDBC {
 							System.out.println(rs.getString(1)+ " " + rs.getInt(2)+ " " + rs.getInt(3));
 						}
 						
-			/* Comment */ System.out.println("--------------------------------------\nThong ke so nhan vien cac phong ban theo gioi tinh\n--------------------------------------");
+			/* Comment */ System.out.println("--------------------------------------\n"
+											+ "Thong ke so nhan vien cac phong ban theo gioi tinh"
+											+ "\n--------------------------------------");
 			
 						rs= stt.executeQuery("select p.tenphong,\r\n" + 
 								"			   count(case when n.gioitinh='M' then n.manhanvien else null end) as 'So NV Nam',\r\n" + 
