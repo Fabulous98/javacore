@@ -55,15 +55,25 @@ public class Student extends BasePanel implements ActionListener {
 		PreparedStatement ps;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestCuoiKy24_BuiManhDung", "root", "root");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestCuoiKy24_BuiManhDung", "root", "12345678");
 			stt = con.createStatement();
 			
 			String sql = "insert user(hoten, ngaysinh, sodienthoai) values ('" + tfUser.getText() + "','" 
 			+ tfPass.getText() + "','" + sdtText.getText() + "')";
+			try {
 			int rows = stt.executeUpdate(sql);
+			if (rows>0) {
+				JOptionPane.showMessageDialog(this, "Thêm thành công!");
+			}else {
+				JOptionPane.showMessageDialog(this, "Dữ liệu bạn nhập không đúng!");
+			}
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(this, "Dữ liệu bạn nhập không đúng!");
+			}
 			
 		} catch (Exception e) {
 			System.out.println(e);
+			
 		}
 	}
 

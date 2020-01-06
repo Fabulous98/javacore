@@ -37,18 +37,17 @@ public class Manager {
 		case 1:
 			System.out.println("Nhap id: ");
 			int _id = scan.nextInt();
-			
+			scan.nextLine();
 			System.out.println("Nhap name: ");
 			String _name = scan.nextLine();
 			System.out.println("Nhap age: ");
-			
 			int _age = scan.nextInt();
+			scan.nextLine();
 			System.out.println("Nhap address: ");
 			String _add = scan.nextLine();
-			scan.next();
 			System.out.println("Nhap gpa: ");
 			float _gpa = scan.nextFloat();
-			scan.next();
+			scan.nextLine();
 		   ma.addStudent(_id, _name, _age, _add, _gpa);
 		   break;
 		case 2:
@@ -61,22 +60,23 @@ public class Manager {
 			System.out.println("Nhap id: ");
 			
 			_id2 = scan.nextInt();
-	
-			System.out.println("name, age, address, gpa: ");
+			scan.nextLine();
+			System.out.println("Nhap name: ");
 			_name2 = scan.nextLine();
-			
+			System.out.println("Nhap age: ");
 			_age2 = scan.nextInt();
-			
+			scan.nextLine();
+			System.out.println("Nhap address: ");
 			_add2 = scan.nextLine();
-			
+			System.out.println("Nhap gpa: ");
 			gpa2 = scan.nextFloat();
-		
+			scan.nextLine();
 			ma.editStudent(_id2, _name2, _age2, _add2,gpa2);
 		   break;
 		case 3:
 			int _id3;
 			System.out.println("Nhap id: ");
-			_id3 = Integer.parseInt(scan.nextLine());
+			_id3 = scan.nextInt();
 			ma.deleteStudent(_id3);
 		   break;
 		case 4:
@@ -86,6 +86,7 @@ public class Manager {
 			ma.softUpByName();
 		   break; 
 		case 6:
+			ma.show();
 		   break;
 		default:
 			
@@ -111,11 +112,9 @@ public class Manager {
 	
 	private Comparator<Students> conditions2 = new Comparator<Students>() {
 		public int compare(Students user1, Students user2) {
-			int check = 0;
-		if (Math.round(user1.getGpa()*100)/100 == Math.round(user2.getGpa()*100)/100) {
-			check = 1;
-		};
-		return check;
+			
+			return (user1.getGpa() > user2.getGpa()) ? 1 : -1;
+		
 		}
 	};
 
@@ -162,10 +161,12 @@ public class Manager {
 	
 	public void softUpByName() {
 		list.sort(conditions);
+		System.out.println("Sap xep theo ten Success!");
 	}
 
 	public void softUpByGpa() {
 		list.sort(conditions2);
+		System.out.println("Sap xep theo Gpa Success!");
 	}
 	
 	public void show() {
