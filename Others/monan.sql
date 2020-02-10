@@ -1,4 +1,4 @@
-drop database if exists monan;
+﻿drop database if exists monan;
 Create database monan;
 use monan;
 
@@ -21,6 +21,7 @@ C float,
 primary key (manl)
 );
 
+21_buimanhdung_manageuser
 create table nglieuky(
 manl int not null,
 manlk int not null,
