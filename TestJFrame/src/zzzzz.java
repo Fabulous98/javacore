@@ -54,7 +54,7 @@ public class zzzzz {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		panel.setBackground(Color.CYAN);
 		panel.setBounds(0, 97, 643, 289);
 		frame.getContentPane().add(panel);
