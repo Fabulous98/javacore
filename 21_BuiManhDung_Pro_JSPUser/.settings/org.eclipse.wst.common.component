@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="21_BuiManhDung_Pro_JSPUser">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="21_BuiManhDung_Pro_JSPUser"/>
+        <property name="java-output-path" value="/21_BuiManhDung_Pro_JSPUser/build/classes"/>
+    </wb-module>
+</project-modules>

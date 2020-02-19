@@ -2,7 +2,12 @@
     <wb-module deploy-name="21_BuiManhDung_Pro_Servlet">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+<<<<<<< HEAD
         <property name="java-output-path" value="/21_BuiManhDung_Pro_Servlet/build/classes"/>
         <property name="context-root" value="21_BuiManhDung_Pro_Servlet"/>
+=======
+        <property name="context-root" value="21_BuiManhDung_Pro_Servlet"/>
+        <property name="java-output-path" value="/21_BuiManhDung_Pro_Servlet/build/classes"/>
+>>>>>>> 253e7d072463836af46e224053629b3f0435e5c3
     </wb-module>
 </project-modules>

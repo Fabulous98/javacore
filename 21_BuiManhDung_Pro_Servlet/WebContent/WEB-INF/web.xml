@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>21_BuiManhDung_Pro_Servlet</display-name>
   <welcome-file-list>
@@ -6,3 +7,24 @@
     
   </welcome-file-list>
 </web-app>
+=======
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+							
+<web-app>
+	<display-name>Hello World</display-name>
+	<servlet>
+		<servlet-name>HelloWorld</servlet-name>
+		
+		<servlet-class>controller.HelloWorld</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>HelloWorld</servlet-name>
+		<url-pattern>/Bye</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
+>>>>>>> 253e7d072463836af46e224053629b3f0435e5c3
