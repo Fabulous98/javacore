@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Bungee+Shade|Source+Sans+Pro');
+
+body {
+  font-family: 'Source Sans Pro', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body:before {
+  content: '';
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  background: url('images/runaway-back.jpg'); no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.bungee {
+  font-family: 'Bungee Shade', cursive;
+}
+
+h1 {
+  font-family: 'Bungee Shade', cursive;
+}
+
+h1, h2, h3, h4, h5, p {
+  color: white;
+}
+
+.main > .container {
+  padding-top: 5rem;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-20px);
+  }
+}
+
+.bounce {
+  animation: bounce 1.2s ease 0s infinite alternate;
+}
