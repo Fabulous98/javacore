@@ -14,7 +14,7 @@ export default class Projects extends React.Component {
                 <Row className='show-grid'>
                     <Col xs={12}>
                         <h2>Frad Music</h2>
-                        <p>Check out to discover my world!</p>
+                        <p>Discover my music!</p>
                         <p><a href='https://frad.bandcamp.com/'>My bandcamp!</a></p>
                     </Col>
                 </Row>

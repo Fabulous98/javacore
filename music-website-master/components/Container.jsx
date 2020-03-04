@@ -8,6 +8,7 @@ import VideoPlayer from './VideoPlayer.jsx';
 import SocialMedia from './SocialMedia.jsx';
 import Projects from './Projects.jsx';
 import About from './About.jsx';
+import Contact from './Contact.jsx';
 
 const style = {
     height: 'auto',
@@ -22,6 +23,7 @@ export default class Container extends React.Component {
           
             <div className='container-fluid main' style={style}>
                 <Hero/>
+                <Contact/>
                 <About/>
                 <SocialMedia/>
                 <ImageGrid/>
