@@ -5,7 +5,7 @@ import { Jumbotron } from 'react-bootstrap';
 import ScrollLite from './ScrollLite.jsx';
 
 const heroObj = {
-    title: 'Jared Donisvitch',
+    title: 'Brilliant Music',
     subtitle: 'Melodic expression is never far, it is merely dorment and waiting to be unearthed.'
 };
 

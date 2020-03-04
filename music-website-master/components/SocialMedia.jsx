@@ -5,7 +5,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import Twitter from './Twitter.jsx';
 
 const MediaOutlet = {
-    facebook: 'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fdonisvitchmusic&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId'
+    facebook: 'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffradbeats&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId'
 };
 
 const style = {

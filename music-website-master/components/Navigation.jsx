@@ -6,7 +6,7 @@ import NavItemScroll from './NavItemScroll.jsx';
 import ScrollLite from './ScrollLite.jsx';
 
 const navObj = {
-    title: 'JD',
+    title: 'FRAD',
     subtitle: 'Music, Software, Geo.',
     logo: 'images/logo-transparent.png',
     navStyle: {
@@ -37,6 +37,7 @@ export default class Navigation extends React.Component {
                     <Navbar.Toggle/>
                 </Navbar.Header>
                 <Navbar.Collapse>
+                   
                     <Nav style={navObj.navStyle}>
                         <NavItemScroll eventKey={1} id='about' name='ABOUT'></NavItemScroll>
                         <NavItemScroll eventKey={2} id='images' name='IMAGES'></NavItemScroll>
@@ -46,19 +47,16 @@ export default class Navigation extends React.Component {
                         <NavItemScroll eventKey={6} id='video' name='VIDEO'></NavItemScroll>
                     </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={7} href='https://facebook.com/donisvitchmusic' target='_blank' alt='Facebook'>
+                        <NavItem eventKey={7} href='https://www.facebook.com/fradbeats/' target='_blank' alt='Facebook'>
                             <span className='fa fa-facebook'></span>
                         </NavItem>
-                        <NavItem eventKey={8} href='https://instagram.com/jdonisvitch' target='_blank' alt='Instagram'>
+                        <NavItem eventKey={8} href='https://www.instagram.com/im_frad/' target='_blank' alt='Instagram'>
                             <span className='fa fa-instagram'></span>
                         </NavItem>
-                        <NavItem eventKey={9} href='https://twitter.com/jareddonisvitch' target='_blank' alt='Twitter'>
+                        <NavItem eventKey={9} href='https://twitter.com/im_frad' target='_blank' alt='Twitter'>
                             <span className='fa fa-twitter'></span>
                         </NavItem>
-                        <NavItem eventKey={10} href='https://reverbnation.com/donisvitch' target='_blank' alt='ReverbNation'>
-                            <span className='fa fa-star'></span>
-                        </NavItem>
-                        <NavItem eventKey={11} href='https://donisvitch.bandcamp.com' target='_blank' alt='Bandcamp'>
+                        <NavItem eventKey={11} href='https://frad.bandcamp.com' target='_blank' alt='Bandcamp'>
                             <span className='fa fa-bandcamp'></span>
                         </NavItem>
                     </Nav>

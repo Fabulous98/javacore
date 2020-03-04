@@ -10,12 +10,12 @@ export default class Projects extends React.Component {
         return (
 
             <Grid id='projects'>
-                <h1> Past Musical Projects </h1>
+                <h1> My Musical Projects </h1>
                 <Row className='show-grid'>
                     <Col xs={12}>
-                        <h2>Norwood</h2>
-                        <p>Back in highschool I played guitar and sang for this group.</p>
-                        <p><a href='https://norwood.bandcamp.com/'>Check out our bandcamp!</a></p>
+                        <h2>Frad Music</h2>
+                        <p>Check out to discover my world!</p>
+                        <p><a href='https://frad.bandcamp.com/'>My bandcamp!</a></p>
                     </Col>
                 </Row>
             </Grid>

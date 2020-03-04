@@ -9,7 +9,7 @@ export default class Instagram extends React.Component {
 
         new Instafeed({
             get: 'user',
-            userId: '939099016',
+            userId: '4839166721',
             accessToken: '',
             resolution: 'standard_resolution',
             limit: '4',

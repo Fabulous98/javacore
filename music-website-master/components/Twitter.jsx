@@ -22,7 +22,7 @@ export default class Twitter extends React.Component {
 
         return (
 
-            <a  href='https://twitter.com/jareddonisvitch'
+            <a  href='https://twitter.com/im_frad'
                 className='twitter-timeline'
                 data-show-count='false'
                 data-show-screen-name='false'

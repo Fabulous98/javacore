@@ -5,7 +5,7 @@ import React from 'react';
 const date = new Date();
 
 const footerObj = {
-    name: 'JARED DONISVITCH',
+    name: 'Brilliant Music Studio',
     date: date.getFullYear()
 };
 

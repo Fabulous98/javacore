@@ -1,5 +1,5 @@
 {
-  "name": "jdonisvitch-music",
+  "name": "brilliant-music",
   "version": "0.5.1",
   "description": "A single page website for highlighting musical work.",
   "main": "app.js",
@@ -8,7 +8,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production"
   },
-  "author": "Jerry Garcia @ BRS",
+  "author": "brilliant-music @ BRS",
   "license": "MIT",
   "dependencies": {
     "npm": "^6.13.4",

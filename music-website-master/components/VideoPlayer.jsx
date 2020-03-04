@@ -13,9 +13,9 @@ export default class VideoPlayer extends React.Component {
                 <Row>
                     <Col xs={12}>
                         <h1>Video</h1>
-                        <h3>Penumbra Recordings - Naked&Free - October 2013</h3>
+                        <h3>Frad - First Date - April 2018</h3>
                         <ResponsiveEmbed a16by9>
-                            <embed type='video/mp4' src='https://www.youtube.com/embed/oneGp5Rkszk' />
+                            <embed type='video/mp4' src='https://www.youtube.com/embed/AVK0BIVqLLc' />
                         </ResponsiveEmbed>
                     </Col>
                 </Row>
