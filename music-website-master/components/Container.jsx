@@ -23,13 +23,13 @@ export default class Container extends React.Component {
           
             <div className='container-fluid main' style={style}>
                 <Hero/>
-                <Contact/>
                 <About/>
                 <SocialMedia/>
                 <ImageGrid/>
                 <MusicPlayer/>
                 <VideoPlayer/>
                 <Projects/>
+                <Contact/>
             </div>
         );
     }

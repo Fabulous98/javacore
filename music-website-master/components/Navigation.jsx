@@ -41,10 +41,11 @@ export default class Navigation extends React.Component {
                     <Nav style={navObj.navStyle}>
                         <NavItemScroll eventKey={1} id='about' name='ABOUT'></NavItemScroll>
                         <NavItemScroll eventKey={2} id='images' name='IMAGES'></NavItemScroll>
-                        <NavItemScroll eventKey={3} id='projects' name='PROJECTS'></NavItemScroll>
+                        <NavItemScroll eventKey={3} id='projects' name='CONTACT'></NavItemScroll>
                         <NavItemScroll eventKey={4} id='music' name='MUSIC'></NavItemScroll>
                         <NavItemScroll eventKey={5} id='social' name='SOCIAL'></NavItemScroll>
                         <NavItemScroll eventKey={6} id='video' name='VIDEO'></NavItemScroll>
+                        
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={7} href='https://www.facebook.com/fradbeats/' target='_blank' alt='Facebook'>
