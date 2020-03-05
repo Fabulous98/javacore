@@ -9,6 +9,7 @@ export default class Contact extends React.Component {
         return (
             
                 <section id="contact">
+                
                 <div className="container">
                     <div className="row">
                     <div className="col-lg-9 col-md-9 col-sm-9">
