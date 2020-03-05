@@ -5,7 +5,7 @@ import { Jumbotron } from 'react-bootstrap';
 import ScrollLite from './ScrollLite.jsx';
 
 const heroObj = {
-    title: 'Brilliant Music',
+    title: 'Brilliant Music Studio',
     subtitle: 'Melodic expression is never far, it is merely dorment and waiting to be unearthed.'
 };
 
