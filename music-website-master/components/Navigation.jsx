@@ -57,7 +57,7 @@ export default class Navigation extends React.Component {
                         <NavItem eventKey={9} href='https://twitter.com/im_frad' target='_blank' alt='Twitter'>
                             <span className='fa fa-twitter'></span>
                         </NavItem>
-                        <NavItem eventKey={11} href='https://frad.bandcamp.com' target='_blank' alt='Bandcamp'>
+                        <NavItem eventKey={11} href='https://bmusics.bandcamp.com' target='_blank' alt='Bandcamp'>
                             <span className='fa fa-bandcamp'></span>
                         </NavItem>
                     </Nav>

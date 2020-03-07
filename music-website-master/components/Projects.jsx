@@ -15,7 +15,7 @@ export default class Projects extends React.Component {
                     <Col xs={12}>
                         <h2>Frad Music</h2>
                         <p>Discover my music!</p>
-                        <p><a href='https://frad.bandcamp.com/'>My bandcamp!</a></p>
+                        <p><a href='https://bmusics.bandcamp.com/'>My bandcamp!</a></p>
                         <p>Get contact for more information:</p>
                     </Col>
                 </Row>

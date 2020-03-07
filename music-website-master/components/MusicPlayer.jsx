@@ -4,8 +4,8 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 const BandCamp = {
-    runaway: 'https://bandcamp.com/EmbeddedPlayer/track=1747464792/size=large/bgcol=333333/linkcol=0f91ff/minimal=true/transparent=true/',
-    storm: 'https://bandcamp.com/EmbeddedPlayer/track=2448303870/size=large/bgcol=333333/linkcol=0f91ff/minimal=true/transparent=true/'
+    runaway: 'https://bandcamp.com/EmbeddedPlayer/album=603546913/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/track=2504498281/transparent=true/',
+    storm: 'https://bandcamp.com/EmbeddedPlayer/album=603546913/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/track=2915641562/transparent=true/'
 };
 
 const style = {
@@ -26,15 +26,15 @@ export default class MusicPlayer extends React.Component {
                         <h1>Recordings</h1>
                     </Col>
                     <Col xs={12} sm={6}>
-                        <h3>First Date <i>- released April 21, 2018</i></h3>
+                        <h3>Sadness DearestDearest <i>- released March 7, 202020</i></h3>
                         <iframe style={style} src={BandCamp.runaway} seamless>
-                            <a href='https://frad.bandcamp.com/track/first-date'>First Date</a>
+                            <a href='https://bmusics.bandcamp.com/track/sadness-dearest'>First Date</a>
                         </iframe>
                     </Col>
                     <Col xs={12} sm={6}>
-                        <h3>Luv Letters <i>- released April 04, 2019</i></h3>
+                        <h3>Sadness Violin <i>- released March 7, 202020</i></h3>
                         <iframe style={style} src={BandCamp.storm} seamless>
-                            <a href='https://frad.bandcamp.com/track/luv-letters'>Luv Letters</a>
+                            <a href='https://bmusics.bandcamp.com/track/sadness-violin'>Luv Letters</a>
                         </iframe>
                     </Col>
                 </Row>
