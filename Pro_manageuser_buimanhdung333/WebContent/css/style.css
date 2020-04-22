@@ -1,0 +1,162 @@
+@CHARSET "UTF-8";
+
+/* The container */
+.container {
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.tbl {
+	font-size: 12px;
+	border: 1px solid #cccccc;
+	background-image: none;
+	border-collapse: collapse;
+}
+
+.tbl_input {
+	border: none;
+}
+
+.errMsg {
+	font-weight: bold;
+	color: #FF0000;
+	text-align: left;
+}
+
+.txBox {
+	background-color: #ffffff;
+	padding: 2px;
+	border: 1px solid #aaaaaa;
+	font-size: 13px;
+}
+
+.tr2, .td2 {
+	background-image: url(../images/bg_td2.gif);
+	background-repeat: repeat-x;
+	background-position: center;
+	font-weight: normal;
+	background-color: #f0f0f0;
+	padding: 3px;
+	color: #000000;
+}
+
+.btn {
+	font-size: 11px;
+	font-weight: normal;
+	background-image: url(../images/btn_bg.gif);
+	background-repeat: no-repeat;
+	width: 50px;
+	height: 18px;
+	border: 0px;
+	cursor: pointer;
+	padding-top: 2px;
+}
+
+.btn.btn_wider {
+	background-image: url(../images/btn_wider_bg.gif);
+	width: 75px;
+}
+
+.algn-l {
+	text-align: left;
+}
+
+.algn-r {
+	text-align: right;
+}
+
+.algn-c {
+	text-align: center;
+}
+
+.lbl_left {
+	font-weight: bold;
+	color: #000000;
+	text-align: left;
+	font-size: 13px;
+	width: 120px;
+}
+
+.tbl_list {
+	font-size: 12px;
+	border: 1px solid #cccccc;
+	background-image: none;
+	border-collapse: collapse;
+}
+
+.lbl_paging {
+	color: #000000;
+	text-align: left;
+	font-size: 12px;
+}
+
+.lbl_footer {
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+	text-align: center;
+	width: 850px;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.textTable {
+	max-width: 517px;
+	word-wrap: break-word;
+}

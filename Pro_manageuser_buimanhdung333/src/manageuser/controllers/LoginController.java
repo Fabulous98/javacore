@@ -20,25 +20,6 @@ import manageuser.validates.LoginValidate;
 
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public LoginController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
-		// Khởi tạo một đối tượng request với đường dẫn đến màn hình ADM001
-		RequestDispatcher dispatcher = req.getRequestDispatcher(Constant.URL_ADM001);
-		// thực hiện forward yêu cầu
-		dispatcher.forward(req, rep);
-	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
