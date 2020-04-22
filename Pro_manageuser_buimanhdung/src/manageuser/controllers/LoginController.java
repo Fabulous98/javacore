@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,32 +15,15 @@ import manageuser.utils.Constant;
 import manageuser.validates.LoginValidate;
 
 /**
- * Servlet implementation class LoginController
+ * Controller xử lý màn hình login
  */
 
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-    protected void doGet(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
-		// Khởi tạo một đối tượng request với đường dẫn đến màn hình ADM001
-		RequestDispatcher dispatcher = req.getRequestDispatcher(Constant.URL_ADM001);
-		// thực hiện forward yêu cầu
-		dispatcher.forward(req, rep);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -63,7 +45,7 @@ public class LoginController extends HttpServlet {
 				// Set giá trị lên session
 				session.setAttribute(Constant.SESSION_LOGIN, loginName);
 				// chuyển đến trang ADM002
-				response.sendRedirect(request.getContextPath() + "/listUser.do");
+				response.sendRedirect(request.getContextPath() + Constant.URL_LIST_USER);
 			}
 			// ngược lại
 			else {
@@ -79,7 +61,7 @@ public class LoginController extends HttpServlet {
 			System.out.println("Class: " + this.getClass().getName() + ", Method: "
 					+ e.getStackTrace()[0].getMethodName() + ", Error: " + e.getMessage());
 			// Chuyển đến trang system error
-			response.sendRedirect(request.getContextPath() + Constant.URL_ERROR);
+			response.sendRedirect(request.getContextPath() + Constant.URL_ERROR + Constant.ERROR_SYSTEM);
 		}
 	}
 

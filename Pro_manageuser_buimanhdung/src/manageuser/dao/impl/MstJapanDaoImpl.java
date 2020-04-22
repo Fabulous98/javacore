@@ -14,10 +14,54 @@ import manageuser.dao.MstJapanDao;
 import manageuser.entities.MstJapan;
 
 /**
+ * Description: Class chứa các phương thức làm việc với bảng MstJapan
+ * 
  * @author MDung
  *
  */
 public class MstJapanDaoImpl extends BaseDaoImpl implements MstJapanDao {
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see manageuser.dao.TblUserDao#getEmail(java.lang.String, int)
+	 */
+	@Override
+	public String getCodelevel(String codelevel) throws SQLException{
+		String codeLevel = "";
+		try {
+			// tạo đối tượng preparedStatement
+			PreparedStatement preparedStatement;
+			// tạo đối tượng stringbuider
+			StringBuilder sqlCommand = new StringBuilder();
+			// câu lệnh SQL select
+			sqlCommand.append("SELECT code_level ");
+			sqlCommand.append("FROM mst_japan ");
+			sqlCommand.append("WHERE code_level = ?  ");
+			
+			int index = 1;
+			// Tạo đối tượng preparedStatement
+			preparedStatement = connect.prepareStatement(sqlCommand.toString());
+			preparedStatement.setString(index++, codelevel);
+			
+			// Thực thi câu lệnh SQL
+			ResultSet resultSet = preparedStatement.executeQuery();
+			// Lấy về giá trị email
+			if (resultSet.next()) {
+				// Set giá trị vào tblUser
+				codeLevel = resultSet.getString("code_level");
+			} else {
+				throw new SQLException("Không có codelevel trong Database!");
+			}
+		} catch (SQLException e) {
+			// Ghi log và ném ngoại lệ
+			System.out.println("Class: " + this.getClass().getName() + ".tblUserDaoImpl" + ", Method: "
+					+ e.getStackTrace()[0].getMethodName() + ", Error: " + e.getMessage());
+			// Ném ngoại lệ
+			throw e;
+		}
+		return codeLevel;
+	}
 
 	/*
 	 * (non-Javadoc)

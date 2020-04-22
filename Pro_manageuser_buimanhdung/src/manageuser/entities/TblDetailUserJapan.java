@@ -5,6 +5,7 @@
 package manageuser.entities;
 
 /**
+ * Class javabean chứa các thông tin TblDetailUserJapan
  * @author MDung
  *
  */

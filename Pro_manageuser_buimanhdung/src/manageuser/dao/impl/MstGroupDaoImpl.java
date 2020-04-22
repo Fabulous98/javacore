@@ -14,6 +14,8 @@ import manageuser.dao.MstGroupDao;
 import manageuser.entities.MstGroup;
 
 /**
+ * Desciption: Class chứa các phương thức làm việc với bảng MstGroup
+ * 
  * @author MDung
  *
  */

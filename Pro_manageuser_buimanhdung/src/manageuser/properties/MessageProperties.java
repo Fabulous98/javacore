@@ -1,6 +1,6 @@
 /**
-* Copyright(C) 2019 Luvina Acadamy
-* MessageErrorProperties.java, Nov 22, 2019 dtthoa
+* Copyright(C) 2019 Luvina Software
+* MessageErrorProperties.java, Dec 27, 2019, MDung
 */
 package manageuser.properties;
 
@@ -13,14 +13,14 @@ import java.util.Properties;
 import manageuser.utils.Constant;
 
 /**
- * Class Đọc các thông tin lỗi
+ * Class đọc các thông báo từ massage_ja.properties 
  * 
- * @author Đoàn Thị Thoa
+ * @author MDung
  *
  */
-public class MessageProperties {
+public class MessageProperties{
 	// lưu các cặp <key, value> trong file properties
-	private static Map<String, String> mapMessageProperties = new HashMap<String, String>();
+	public static Map<String, String> mapMessageProperties = new HashMap<String, String>();
 	static {
 		try {
 			// tạo đối tượng kiểu Properties

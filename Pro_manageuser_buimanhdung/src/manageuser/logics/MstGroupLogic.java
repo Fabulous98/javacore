@@ -26,8 +26,8 @@ public interface MstGroupLogic {
 	/**
 	 * Lấy tên group khi biết groupID
 	 * 
-	 * @param groupId
-	 *            id của group
+	 * @param groupId : id của group
+	 *            
 	 * @return mstGroup
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -37,7 +37,7 @@ public interface MstGroupLogic {
 	/**
 	 * Kiểm tra group đã tồn tại hay chưa
 	 * 
-	 * @param groupId
+	 * @param groupId : id của group
 	 * @return
 	 * @throws ClassNotFoundException 
 	 * @throws SQLException 

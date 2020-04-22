@@ -17,7 +17,7 @@
 					<td width="80%"><img
 						src="${pageContext.request.contextPath}/images/logo-manager-user.gif"
 						alt="Luvina" />
-						<td>
+						</td>
 							<td align="left"><a
 								href="${pageContext.request.contextPath}/logout.do">ログアウト</a>
 								&nbsp; <a
@@ -26,7 +26,6 @@
 				</tr>
 			</table>
 		</div>
-	</div>
 <!-- End vung header -->
 </body>
 </html>

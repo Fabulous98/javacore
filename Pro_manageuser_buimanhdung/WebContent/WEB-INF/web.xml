@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
-	<display-name>Pro_manageuser_DoanThiThoa1</display-name>
+	<display-name>Pro_manageuser_buimanhdung</display-name>
 	<servlet>
 		<servlet-name>login</servlet-name>
 		<servlet-class>manageuser.controllers.LoginController</servlet-class>
@@ -43,22 +43,6 @@
 	<servlet-mapping>
 		<servlet-name>AddUserInput</servlet-name>
 		<url-pattern>/addUserInput.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>validateUser</servlet-name>
-		<servlet-class>manageuser.controllers.AddUserInputController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>validateUser</servlet-name>
-		<url-pattern>/validateUser.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>editUserValidate</servlet-name>
-		<servlet-class>manageuser.controllers.EditUserInputController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>editUserValidate</servlet-name>
-		<url-pattern>/editUserValidate.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>AddUserConfirm</servlet-name>
@@ -108,21 +92,13 @@
 		<servlet-name>viewUser</servlet-name>
 		<url-pattern>/viewUser.do</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>editUser</servlet-name>
-		<servlet-class>manageuser.controllers.EditUserInputController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>editUser</servlet-name>
-		<url-pattern>/editUser.do</url-pattern>
-	</servlet-mapping>
 	<filter>
 		<filter-name>loginFilter</filter-name>
 		<filter-class>manageuser.filter.LoginFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>loginFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>*.do</url-pattern>
 
 	</filter-mapping>
 	<filter>

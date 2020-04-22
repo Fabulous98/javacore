@@ -11,27 +11,39 @@ import manageuser.properties.MessageProperties;
 import manageuser.utils.Constant;
 
 /**
- * Servlet implementation class SuccessController
+ * Controller xử lý màn hình thông báo thành công
  */
 public class SuccessController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Xử lí thông báo khi insert hay update thành công
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		// Lấy Type trên request
 		String type = request.getParameter(Constant.TYPE);
-		// Tạo 1 chuỗi để chứa lỗi
+		// Tạo 1 chuỗi để nội dung thông báo
 		String message = "";
-		// Thêm vào message với câu thông báo MESSAGE001
+		// Thêm vào message câu thông báo ứng với type thành công (MESSAGE001)
 		message = MessageProperties.getValueByKey(type);
-		// set giá trị lên request
+		// set giá trị message lên request
 		request.setAttribute("message", message);
-		// Chuyển đến trang ADM006 để hiển thị thông báo
+		// Chuyển đến trang ADM006
 		request.getRequestDispatcher(Constant.URL_ADM006).forward(request, response);
+	}
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 }

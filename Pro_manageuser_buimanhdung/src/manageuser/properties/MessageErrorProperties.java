@@ -1,9 +1,10 @@
 /**
-* Copyright(C) 2019 Luvina Acadamy
-* MessageErrorProperties.java, Nov 22, 2019 dtthoa
+* Copyright(C) 2019 Luvina Software
+* MessageErrorProperties.java, Dec 27, 2019, MDung
 */
 package manageuser.properties;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -13,9 +14,9 @@ import java.util.Properties;
 import manageuser.utils.Constant;
 
 /**
- * Class Đọc các thông tin lỗi
+ * Class Đọc các thông báo lỗi
  * 
- * @author Đoàn Thị Thoa
+ * @author MDung
  *
  */
 public class MessageErrorProperties {
@@ -40,7 +41,7 @@ public class MessageErrorProperties {
 				// thêm vào list
 				mapMessageProperties.put(key, value);
 			}
-		} catch (Exception e) {
+		} catch (IOException e) {
 			System.out.println(e.getMessage());
 			throw new RuntimeException(e);
 

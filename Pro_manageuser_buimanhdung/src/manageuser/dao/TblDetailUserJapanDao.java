@@ -58,5 +58,5 @@ public interface TblDetailUserJapanDao extends BaseDao{
 	 *             Lỗi kết nối DRIVER
 	 */
 
-	int getExitDetailUserJapan(int userId) throws SQLException, ClassNotFoundException;
+	int getDetailUserJapan(int userId) throws SQLException, ClassNotFoundException;
 }

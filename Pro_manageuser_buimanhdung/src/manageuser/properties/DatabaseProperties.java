@@ -1,6 +1,6 @@
 /**
-* Copyright(C) 2019 Luvina Acadamy
-* DatabaseProperties.java, Nov 01, 2019 dtthoa
+* Copyright(C) 2019 Luvina Software
+* DatabaseProperties.java, Dec 27, 2019, MDung
 */
 package manageuser.properties;
 
@@ -14,9 +14,9 @@ import java.util.Properties;
 import manageuser.utils.Constant;
 
 /**
- * Class Đọc các thông tin thiết định kết nối tới database
+ * Class Đọc các thông tin để thiết lập kết nối tới database
  * 
- * @author Đoàn Thị Thoa
+ * @author MDung
  *
  */
 

@@ -24,18 +24,19 @@
 	<fmt:formatDate var="nowMonth" value="${now}" pattern="MM" />
 	<fmt:formatDate var="nowDate" value="${now}" pattern="dd" />
 	<!-- Begin vung input-->
+	<c:set var="checkMove" value="false" scope="session"/>
 	<c:choose>
 		<c:when test="${userInfor.userId > 0}">
-			<c:url value="editUser.do" var="url"></c:url>
+			<c:url value="editUserInput.do?action=validate" var="url"></c:url>
 		</c:when>
 		<c:otherwise>
-			<c:url value="addUserInput.do" var="url">
+			<c:url value="addUserInput.do?action=validate" var="url">
 			</c:url>
 		</c:otherwise>
 	</c:choose>
 	<form action=" ${url}" method="post" name="inputform">
-		<input type="hidden" name="action" value="validate03" /><input
-			type="hidden" name="userId" value="${userInfor.userId}" />
+		
+		<input type="hidden" name="userId" value="${userInfor.userId}" />
 		<table class="tbl_input" border="0" width="75%" cellpadding="0"
 			cellspacing="0">
 			<tr>
@@ -46,7 +47,7 @@
 
 			<c:forEach items="${listError}" var="eror">
 				<tr class="errMsg" colspan="2">
-					<td style="padding-left: 100px">${eror}</td>
+					<td style="padding-left: 100px"><c:out value="${eror}" /></td>
 				</tr>
 			</c:forEach>
 
@@ -99,19 +100,19 @@
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
-								</select> <span>&nbsp;&nbsp;&nbsp;</span></td>
+								</select> </td>
 							</tr>
 
 							<c:choose>
 								<c:when test="${userInfor.userId > 0}">
 									<tr>
-										<tr>
+										
 										<td class="lbl_left"><font color="red">*</font> 氏名:</td>
 										<td align="left"><input class="txBox" type="text"
 											name="fullName" value="${fn:escapeXml(userInfor.fullName)}"
 											size="30" onfocus="this.style.borderColor='#0066ff';"
 											onblur="this.style.borderColor='#aaaaaa';" autofocus="autofocus" /></td>
-									</tr>
+									
 									</tr>
 								</c:when>
 								<c:otherwise>
@@ -184,6 +185,20 @@
 											</c:if>
 										</c:forEach>
 								</select>日</td>
+							</tr>
+							<tr>
+								<td class="lbl_left">性別:</td>
+								<td>
+									<input type="radio" id="male" name="gender" value="Nam"
+									<c:if test="${userInfor.gender == 'Nam'}"> checked</c:if>>
+  									<label for="male">Nam</label>
+  									<input type="radio" id="female" name="gender" value="Nữ"
+  									<c:if test="${userInfor.gender == 'Nữ'}"> checked</c:if>>
+  									<label for="female">Nữ</label>
+  									<input type="radio" id="other" name="gender" value="Khác"
+  									<c:if test="${userInfor.gender == 'Khác'}"> checked</c:if>>
+  									<label for="other">Khác</label>
+								</td>
 							</tr>
 							<tr>
 								<td class="lbl_left"><font color="red">*</font> メールアドレス:</td>
@@ -358,7 +373,7 @@
 			<table border="0" cellpadding="4" cellspacing="0" width="300px">
 				<tr>
 					<th width="200px" align="center">&nbsp;</th>
-					<td><input class="btn" type="submit" value="確認" /></td>
+					<td><input class="btn" type="submit" value="確認" onclick="<c:set var ='checkMove' value='true' scope='session'/>" /></td>
 					<td><c:choose>
 							<c:when test="${userInfor.userId > 0}">
 								<a href="viewUser.do?userId=${userInfor.userId}"> <input
@@ -366,9 +381,9 @@
 								</a>
 							</c:when>
 							<c:otherwise>
-								<a href="listUser.do?action=back"> <input class="btn"
-									type="button" value="戻る" />
-								</a>
+							
+								<input class="btn" type="button" onclick="javascript:location.href='listUser.do?action=back'" value="戻る" />
+								
 							</c:otherwise>
 						</c:choose></td>
 				</tr>

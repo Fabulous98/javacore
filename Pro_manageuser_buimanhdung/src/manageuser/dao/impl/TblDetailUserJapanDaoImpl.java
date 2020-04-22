@@ -15,6 +15,8 @@ import manageuser.utils.Common;
 import manageuser.utils.Constant;
 
 /**
+ * Description: Class chứa các phương thức làm việc với bảng TblDetailUserJapan
+ *
  * @author MDung
  *
  */
@@ -33,19 +35,22 @@ public class TblDetailUserJapanDaoImpl extends BaseDaoImpl implements TblDetailU
 			// Khởi tạo đối tượng PreparedStatement
 			PreparedStatement preparedStatement;
 			StringBuilder sqlCommand = new StringBuilder();
-			// Thực hiện lệnh Sql
+			// Gán câu lệnh sql cho sqlCommand
 			sqlCommand.append(
 					"insert into tbl_detail_user_japan (start_date, end_date, total, user_id, code_level) value(?, ?, ?, ?, ?); ");
-			// Khởi tạo biến inđex
+			// Khởi tạo biến index
 			int index = 1;
+			
 			// Gọi đối tượng preparedStatement
 			preparedStatement = getConnect().prepareStatement(sqlCommand.toString(), Statement.RETURN_GENERATED_KEYS);
-			// Truyền tham số cho lệnh SQl
+			
+			// Truyền tham số cho preparedStatement
 			preparedStatement.setString(index++, tblDetail.getStartDate());
 			preparedStatement.setString(index++, tblDetail.getEndDate());
 			preparedStatement.setInt(index++, Integer.parseInt(tblDetail.getTotal()));
 			preparedStatement.setInt(index++, tblDetail.getUserId());
 			preparedStatement.setString(index++, tblDetail.getCodeLevel());
+			
 			// Thực thi câu lệnh Sql
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -66,27 +71,23 @@ public class TblDetailUserJapanDaoImpl extends BaseDaoImpl implements TblDetailU
 	@Override
 	public void deleteDetailUserJapan(int userId) throws SQLException {
 		try {
-			// tạo đối tượng preparedStatement
+			// Khởi tạo đối tượng PreparedStatement
 			PreparedStatement preparedStatement;
-			// Tạo đối tượng Stringbuider để cộng các chuỗi SQl
 			StringBuilder sqlCommand = new StringBuilder();
-			// thực hiện viết lệnh SQl
-			sqlCommand.append("DELETE FROM tbl_detail_user_japan ");
-			sqlCommand.append("WHERE user_id = ?; ");
+			// Gán câu lệnh sql cho sqlCommand
+			sqlCommand.append("DELETE FROM tbl_detail_user_japan WHERE user_id = ? ");
 			// Gọi đối tượng preparedStatement
 			preparedStatement = connect.prepareStatement(sqlCommand.toString());
-			// Truyền tham số cho lệnh SQL
+			// Truyền tham số cho preparedStatement
 			preparedStatement.setInt(1, userId);
-			// Thực thi câu lệnh SQl
+			// Thực thi câu lệnh Sql
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// Ghi log và ném ngoại lệ
-			System.out.println("Class: " + this.getClass().getName() + ", Method: "
-					+ e.getStackTrace()[0].getMethodName() + ", Error: " + e.getMessage());
+			e.getStackTrace();
 			// Ném ngoại lệ
 			throw e;
 		}
-
 	}
 
 	/*
@@ -126,7 +127,6 @@ public class TblDetailUserJapanDaoImpl extends BaseDaoImpl implements TblDetailU
 			// Ném ngoại lệ
 			throw e;
 		}
-
 	}
 
 	/*
@@ -135,7 +135,7 @@ public class TblDetailUserJapanDaoImpl extends BaseDaoImpl implements TblDetailU
 	 * @see manageuser.dao.TblDetailUserJapanDao#getExitDetailUserJapan(int)
 	 */
 	@Override
-	public int getExitDetailUserJapan(int userId) throws SQLException, ClassNotFoundException {
+	public int getDetailUserJapan(int userId) throws SQLException, ClassNotFoundException {
 		int userIdDetail = 0;
 		try {
 			// Mở kết nối

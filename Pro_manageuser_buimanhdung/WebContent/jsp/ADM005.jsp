@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
+<%@ page import="manageuser.properties.MessageProperties" %> 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -12,9 +14,18 @@
 <title>ユーザ管理</title>
 </head>
 <body>
+
 	<!-- Begin vung header -->
 	<%@ include file="/jsp/header.jsp"%>
 	<!-- End vung header -->
+	
+	<fmt:bundle basename = "manageuser.properties.message_ja">
+		<c:set var="messages">
+			<fmt:message key = "MSG_004"/>
+		</c:set>
+    </fmt:bundle>
+    
+	<!-- <c:set var="messageDelete" value="${msg.getValueByKey('MSG_004')}"></c:set> -->
 
 	<!-- Begin vung input-->
 	<form action="editUserInput.do" method="get"
@@ -43,19 +54,23 @@
 							</tr>
 							<tr>
 								<td class="lbl_left">氏名:</td>
-								<td class= "textTable" align="left">${fn:escapeXml(userInfor.fullName)}</td>
+								<td class= "textTable" style="word-break: break-all;" align="left">${fn:escapeXml(userInfor.fullName)}</td>
 							</tr>
 							<tr>
 								<td class="lbl_left">カタカナ氏名:</td>
-								<td class= "textTable" align="left">${fn:escapeXml(userInfor.fullNameKana)}</td>
+								<td class= "textTable" style="word-break: break-all;" align="left">${fn:escapeXml(userInfor.fullNameKana)}</td>
 							</tr>
 							<tr>
 								<td class="lbl_left">生年月日:</td>
-								<td align="left">${fn:replace(userInfor.birthday,"-","/")}</td>
+								<td align="left">${fn:escapeXml(userInfor.birthday)}</td>
+							</tr>
+							<tr>
+								<td class="lbl_left">性別:</td>
+								<td align="left">${fn:escapeXml(userInfor.gender)}</td>
 							</tr>
 							<tr>
 								<td class="lbl_left">メールアドレス:</td>
-								<td class= "textTable" align="left">${fn:escapeXml(userInfor.email)}</td>
+								<td class= "textTable" style="word-break: break-all;" align="left">${fn:escapeXml(userInfor.email)}</td>
 							</tr>
 							<tr>
 								<td class="lbl_left">電話番号:</td>
@@ -93,7 +108,7 @@
 					<th width="200px" align="center">&nbsp;</th>
 					<td><input class="btn" type="submit" value="編集" /></td>
 					<td><input class="btn" type="button" value="削除"
-						onclick="javascript:deleteConfirm('deleteUser.do','${userInfor.userId}','${msg004}')" />
+						onclick="javascript:deleteConfirm('deleteUser.do','${userInfor.userId}','${messages}')" />
 					</td>
 					<td><a href="listUser.do?action=back"> <input class="btn"
 							type="button" value="戻る" />

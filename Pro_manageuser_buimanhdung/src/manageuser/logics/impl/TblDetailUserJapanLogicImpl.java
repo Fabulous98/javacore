@@ -21,13 +21,13 @@ public class TblDetailUserJapanLogicImpl implements TblDetailUserJapanLogic {
 	 * @see manageuser.logics.TblDetailUserJapanLogic#checkExitDetailUserJapan(int)
 	 */
 	@Override
-	public boolean checkExitDetailUserJapan(int userId) throws ClassNotFoundException, SQLException {
+	public boolean checkExistDetailUserJapan(int userId) throws ClassNotFoundException, SQLException {
 		boolean check = false;
 		try {
 			// Khởi tạo đối tượng TblDetailUserJapanDao
 			TblDetailUserJapanDao tblDetailUserJapanDao = new TblDetailUserJapanDaoImpl();
 			// Check bằng true
-			int userIdDetail = tblDetailUserJapanDao.getExitDetailUserJapan(userId);
+			int userIdDetail = tblDetailUserJapanDao.getDetailUserJapan(userId);
 			// Nếu tồn tại userId đã có trình độ tiếng Nhật
 			if (userIdDetail != Constant.NUMBER_DEFAULT) {
 				check = true;

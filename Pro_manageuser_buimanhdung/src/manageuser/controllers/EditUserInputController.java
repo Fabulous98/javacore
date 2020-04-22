@@ -1,6 +1,5 @@
 package manageuser.controllers;
 
-import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,14 +20,15 @@ import manageuser.utils.Constant;
 import manageuser.validates.ValidateUser;
 
 /**
- * Servlet implementation class EditUserInputController
+ * Controller xử lý màn hình ADM003 tính năng Edit user
  */
 public class EditUserInputController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Xử lí khi click từ 05-03
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +41,7 @@ public class EditUserInputController extends HttpServlet {
 		TblUserInfor userInfor = new TblUserInfor();
 		try {
 			// Nếu id của user lớn hơn 0 và tồn tại trong DB thì thực hiện
-			if (tblUserLogic.checkExistedUserById(userId)) {
+			if (userId > 0 && tblUserLogic.checkExistedUserById(userId)) {
 				// set các giá trị cho selectbox
 				Common.setDataLogic(request);
 				// get giá trị default cho TblUserInfor
@@ -61,12 +61,13 @@ public class EditUserInputController extends HttpServlet {
 			System.out.println("Class: " + this.getClass().getName() + ", Method: "
 					+ e.getStackTrace()[0].getMethodName() + ", Error: " + e.getMessage());
 			// Chuyển đến trang system Eror
-			response.sendRedirect(request.getContextPath() + Constant.URL_ERROR);
+			response.sendRedirect(request.getContextPath() + Constant.URL_ERROR + Constant.ERROR_SYSTEM);
 		}
 	}
 
 	/**
-	 * Xử lí cho TH click confirm
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -87,20 +88,17 @@ public class EditUserInputController extends HttpServlet {
 			if (tblUserLogic.checkExistedUserById(userId)) {
 				// Gắn giá trị mặc định cho userInfor
 				userInfor = getDefaultValue(request);
-				
 				// thực hiện kiểm tra thông tin nhập vào có bị lỗi không
 				listError = validateUser.validateUserInfor(userInfor);
-				// Nếu không có lỗi
+				// Nếu không có lỗi validate
 				if (listError.isEmpty()) {
 					// Khởi tạo key lấy về thời gian hiện tại
 					String key = Common.getKey();
 					// set đối tượng userInfor lên session
 					session.setAttribute(Constant.USER_INFOR + key, userInfor);
-					// Set giá trị check lên sessin
-					session.setAttribute(Constant.CHECK_03_04, Constant.OK);
 					// Chuyển đến Url addUserConfirm.do với giá trị key
 					response.sendRedirect(request.getContextPath() + Constant.URL_EDIT_USER_CONFIRM + "?key=" + key);
-					// Ngược lại nếu có lỗi xảy ra
+					// Nếu có lỗi validate
 				} else {
 					// set lại giá trị mặc định cho các selectbox
 					Common.setDataLogic(request);
@@ -112,10 +110,9 @@ public class EditUserInputController extends HttpServlet {
 					RequestDispatcher rs = request.getRequestDispatcher(Constant.URL_ADM003);
 					rs.forward(request, response);
 				}
-				// Nếu Id không tồn tại thì chuyển đến trang lỗi và hiển thị
-				// thông báo lỗi
+				// Nếu Id không tồn tại thì chuyển đến trang lỗi, hiển thị thông báo lỗi ER013
 			} else {
-				// Chuyển đến trang System_Error
+				// Chuyển đến trang System_Error, mã lỗi ER013
 				response.sendRedirect(request.getContextPath() + Constant.URL_ERROR + Constant.ER013);
 			}
 		} catch (Exception e) {
@@ -123,10 +120,10 @@ public class EditUserInputController extends HttpServlet {
 			System.out.println("Class: " + this.getClass().getName() + ", Method: "
 					+ e.getStackTrace()[0].getMethodName() + ", Error: " + e.getMessage());
 			// Chuyển đến trang system Eror
-			response.sendRedirect(request.getContextPath() + Constant.URL_ERROR);
-		}
+			response.sendRedirect(request.getContextPath() + Constant.URL_ERROR + Constant.ERROR_SYSTEM);
+		}	
 	}
-
+	
 	/**
 	 * Get giá trị default cho màn hình ADM003
 	 * 
@@ -154,7 +151,7 @@ public class EditUserInputController extends HttpServlet {
 				// Lấy về 1 đối tượng userInfor
 				userInfor = (TblUserInfor) session.getAttribute(Constant.USER_INFOR + key);
 				// Nếu action là validate thì thực hiện
-			} else if (Constant.ACTION_VALIDATE_003.equals(action)) {
+			} else if (Constant.ACTION_VALIDATE.equals(action)) {
 				// lấy ngày tháng năm trên select box
 				int yearBirth = Common.convertStringToInt(request.getParameter(Constant.YEAR_BIRTH),
 						Constant.DEFAULFT_VALUE_TIME);
@@ -171,6 +168,7 @@ public class EditUserInputController extends HttpServlet {
 				userInfor.setBirthday(Common.convertIntToTime(yearBirth, monthBirth, dateBirth));
 				userInfor.setEmail(request.getParameter(Constant.EMAIL));
 				userInfor.setTel(request.getParameter(Constant.TEL));
+				userInfor.setGender(request.getParameter(Constant.GENDER));
 				// Lấy giá trị codeLevel trên selectbox
 				String codeLevel = request.getParameter(Constant.CODE_LEVEL);
 				if (Common.checkCodelevel(codeLevel)) {
@@ -181,6 +179,10 @@ public class EditUserInputController extends HttpServlet {
 							Constant.DEFAULFT_VALUE_TIME);
 					int dateStart = Common.convertStringToInt(request.getParameter(Constant.DATE_START),
 							Constant.DEFAULFT_VALUE_TIME);
+					
+					// Chuyển ngày tháng năm thành chuỗi
+					String startDate = Common.convertIntToTime(yearStart, monthStart, dateStart);
+					
 					// Lấy ngày tháng năm kết thúc
 					int yearEnd = Common.convertStringToInt(request.getParameter(Constant.YEAR_END),
 							Common.getYearNow());
@@ -188,10 +190,14 @@ public class EditUserInputController extends HttpServlet {
 							Constant.DEFAULFT_VALUE_TIME);
 					int dateEnd = Common.convertStringToInt(request.getParameter(Constant.DATE_END),
 							Constant.DEFAULFT_VALUE_TIME);
+					
+					// Chuyển ngày tháng năm thành 1 chuỗi
+					String endDate = Common.convertIntToTime(yearEnd, monthEnd, dateEnd);
+					
 					// set giá trị vừa lấy được vào userInfor
 					userInfor.setCodeLevel(codeLevel);
-					userInfor.setStartDay(Common.convertIntToTime(yearStart, monthStart, dateStart));
-					userInfor.setEndDate(Common.convertIntToTime(yearEnd, monthEnd, dateEnd));
+					userInfor.setStartDay(startDate);
+					userInfor.setEndDate(endDate);
 					userInfor.setTotal(request.getParameter(Constant.TOTAL));
 				}
 				// Ngược lại nếu action là default thì thực hiện
@@ -211,5 +217,5 @@ public class EditUserInputController extends HttpServlet {
 		// trả về một đối tượng userInfor
 		return userInfor;
 
-	}
+	}	
 }

@@ -5,6 +5,7 @@
 package manageuser.entities;
 
 /**
+ * Class javabean chứa các thông tin TblUserInfor
  * @author MDung
  *
  */
@@ -37,9 +38,26 @@ public class TblUserInfor {
 		private String total;
 		// Khai báo ngày bắt đầu
 		private String startDay;
+		// Khai báo pass
 		private String pass;
+		// Khai báo confirmpass
 		private String confirmPass;
-		private String nameKana;
+		//Khởi tạo biến gender là giới tính
+		private String gender="";
+
+		/**
+		 * @return the gender
+		 */
+		public String getGender() {
+			return gender;
+		}
+
+		/**
+		 * @param gender the gender to set
+		 */
+		public void setGender(String gender) {
+			this.gender = gender;
+		}
 
 		/**
 		 * @return the fullNameKana
@@ -86,20 +104,6 @@ public class TblUserInfor {
 			this.confirmPass = confirmPass;
 		}
 
-		/**
-		 * @return the nameKana
-		 */
-		public String getNameKana() {
-			return nameKana;
-		}
-
-		/**
-		 * @param nameKana
-		 *            the nameKana to set
-		 */
-		public void setNameKana(String nameKana) {
-			this.nameKana = nameKana;
-		}
 
 		/**
 		 * @return the groupId

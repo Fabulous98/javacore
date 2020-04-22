@@ -17,7 +17,6 @@
 		<center>
 			<table class="tbl_input" cellpadding="4" cellspacing="0"
 				width="400px">
-
 				<tr>
 					<th width="120px">&nbsp;</th>
 					<th></th>
@@ -25,6 +24,9 @@
 				<tr>
 					<th colspan="2" align="left">アカウント名およびパスワードを入力してください</th>
 				</tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
 				<c:forEach items="${listError}" var="eror">
 					<tr>		
 						<td class="errMsg" colspan="2"> ${eror}</td>

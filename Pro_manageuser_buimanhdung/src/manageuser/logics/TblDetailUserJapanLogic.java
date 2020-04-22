@@ -19,5 +19,5 @@ public interface TblDetailUserJapanLogic {
 	 * @throws ClassNotFoundException lỗi load DRIVER
 	 * @throws SQLException lỗi SQL
 	 */
-	boolean checkExitDetailUserJapan(int userId) throws ClassNotFoundException, SQLException;
+	boolean checkExistDetailUserJapan(int userId) throws ClassNotFoundException, SQLException;
 }

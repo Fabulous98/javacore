@@ -14,6 +14,17 @@ import manageuser.entities.MstJapan;
  *
  */
 public interface MstJapanDao {
+	
+	/**
+	 * Kiểm tra xem email đã tồn tại hay chưa
+	 * 
+	 * @param email
+	 * @param userId
+	 * @return email của user
+	 * @throws SQLException
+	 */
+	String getCodelevel(String codelevel) throws SQLException;
+	
 	/**
 	 * Lấy danh sách trình độ tiếng Nhật
 	 * 

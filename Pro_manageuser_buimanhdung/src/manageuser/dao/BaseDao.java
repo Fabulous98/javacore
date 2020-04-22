@@ -18,14 +18,14 @@ public interface BaseDao {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	void openConnect() throws SQLException, ClassNotFoundException;
+	public void openConnect() throws SQLException, ClassNotFoundException;
 
 	/**
 	 * Hàm đóng kết nối với DB
 	 * 
 	 * @throws SQLException
 	 */
-	void closeConnect() throws SQLException;
+	public void closeConnect() throws SQLException;
 
 	/**
 	 * set giá trị cho connection
@@ -33,7 +33,7 @@ public interface BaseDao {
 	 * @param connect
 	 *            conection kết nối với DB
 	 */
-	void setConnect(Connection connect);
+	public void setConnect(Connection connect);
 
 	/**
 	 * Lấy connection

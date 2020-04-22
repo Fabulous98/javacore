@@ -1,9 +1,10 @@
 /**
-* Copyright(C) 2019 Luvina Acadamy
-* MessageErrorProperties.java, Nov 22, 2019 dtthoa
+* Copyright(C) 2019 Luvina Software
+* MessageErrorProperties.java, Dec 27, 2019, MDung
 */
 package manageuser.properties;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import manageuser.utils.Constant;
 /**
  * Class Đọc các thông tin về giới hạn số page hay record
  * 
- * @author Đoàn Thị Thoa
+ * @author MDung
  *
  */
 public class ConfigProperties {
@@ -40,7 +41,7 @@ public class ConfigProperties {
 				// thêm vào list
 				mapMessageProperties.put(key, value);
 			}
-		} catch (Exception e) {
+		} catch (IOException e) {
 			System.out.println(e.getMessage());
 			throw new RuntimeException(e);
 
@@ -50,8 +51,8 @@ public class ConfigProperties {
 	/**
 	 * lấy value tương ứng với key trong file properties
 	 * 
-	 * @param key
-	 *            tên key trong file properties
+	 * @param key : tên key trong file properties
+	 *            
 	 * @return trả về value tương ứng với key
 	 */
 	public static String getValueByKey(String key) {

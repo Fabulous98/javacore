@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import manageuser.utils.Constant;
 
 /**
- * Servlet implementation class LogoutController
+ * Controller xử lý tính năng logout
  */
 public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class LogoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			// Hủy session
+			// Hủy session hiện tại
 			request.getSession().invalidate();
 			// Redirect sang màn hình login
 			response.sendRedirect(request.getContextPath() + Constant.URL_LOGIN);

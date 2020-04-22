@@ -5,6 +5,7 @@
 package manageuser.entities;
 
 /**
+ * Class javabean chứa các thông tin TblUser
  * @author MDung
  *
  */
@@ -31,6 +32,22 @@ public class TblUser {
 		private int rule;
 		//Khởi tạo biến salt là thời gian hiện tại tính đến minisecond
 		private String salt;
+		//Khởi tạo biến gender là giới tính
+		private String gender="";
+
+		/**
+		 * @return the gender
+		 */
+		public String getGender() {
+			return gender;
+		}
+
+		/**
+		 * @param gender the gender to set
+		 */
+		public void setGender(String gender) {
+			this.gender = gender;
+		}
 
 		/**
 		 * @return the userId

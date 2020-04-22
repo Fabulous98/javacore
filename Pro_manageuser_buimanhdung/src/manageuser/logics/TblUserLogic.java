@@ -20,10 +20,10 @@ public interface TblUserLogic {
 	/**
 	 * Kiểm tra tên đăng nhập và mật khẩu
 	 * 
-	 * @param username
-	 *            tên đăng nhập
-	 * @param password
-	 *            mật khẩu
+	 * @param username : tên đăng nhập
+	 *            
+	 * @param password : mật khẩu
+	 *            
 	 * @return true nếu đúng tên đăng nhập và mật khẩu false nếu không
 	 * @throws SQLException
 	 * @throws NoSuchAlgorithmException
@@ -36,28 +36,28 @@ public interface TblUserLogic {
 	/**
 	 * Lấy thông tin user
 	 * 
-	 * @param offset
-	 *            vị trí bản ghi cần lấy
-	 * @param limit
-	 *            số bản ghi hiển thị
-	 * @param groupID
-	 *            mã nhóm
-	 * @param fullName
-	 *            tên user
-	 * @param sortType
-	 *            trường ưu tiên sắp xếp
-	 * @param sortByFullName
-	 *            giá trị sắp xếp theo trường fullName
-	 * @param sortByCodeLevel
-	 *            giá trị sắp xếp theo trường codeLevel
-	 * @param sortByEndDate
-	 *            giá trị sắp xếp theo trường EndDate
+	 * @param offset : vị trí bản ghi cần lấy
+	 *            
+	 * @param limit : số bản ghi hiển thị
+	 *            
+	 * @param groupID : mã nhóm
+	 *            
+	 * @param fullName : tên user
+	 *            
+	 * @param sortType : trường ưu tiên sắp xếp
+	 *            
+	 * @param sortByFullName : giá trị sắp xếp theo trường fullName
+	 *            
+	 * @param sortByCodeLevel : giá trị sắp xếp theo trường codeLevel
+	 *            
+	 * @param sortByEndDate : giá trị sắp xếp theo trường EndDate
+	 *            
 	 * @return danh sách user
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
 	List<TblUserInfor> getListUsers(int offset, int limit, int groupID, String fullName, String sortType,
-			String sortByFullName, String sortByCodeLevel, String sortByEndDate)
+			String sortByFullName, String sortByCodeLevel, String sortByEndDate, int yearBirth, int monthBirth, int dateBirth)
 			throws SQLException, ClassNotFoundException;
 
 	/**
@@ -72,10 +72,10 @@ public interface TblUserLogic {
 	 * @throws SQLException
 	 */
 
-	public int getTotalUser(int groupID, String fullName) throws ClassNotFoundException, SQLException;
+	public int getTotalUser(int groupID, String fullName, int year, int month, int date) throws ClassNotFoundException, SQLException;
 
 	/**
-	 * Phương thức kiểm tra tồn tại email trong DB
+	 * Phương thức kiểm tra tồn tại email trong DB trường hợp add
 	 * 
 	 * @param email
 	 *            điều kiện kiểm tra
@@ -85,7 +85,20 @@ public interface TblUserLogic {
 	 * @throws ClassNotFoundException
 	 *             ngoại lệ không tìm thấy file
 	 */
-	boolean checkEmail(String email, int userId) throws SQLException, ClassNotFoundException;
+	boolean checkEmail(String email) throws SQLException, ClassNotFoundException;
+	
+	/**
+	 * Phương thức kiểm tra tồn tại email trong DB trường hợp edit
+	 * 
+	 * @param email
+	 *            điều kiện kiểm tra
+	 * @return true: Đã tồn tại trong DB, False: chưa tồn tại
+	 * @throws SQLException
+	 *             ngoại lệ sai lệnh Sql
+	 * @throws ClassNotFoundException
+	 *             ngoại lệ không tìm thấy file
+	 */
+	boolean checkExistEmail(String email, int userId) throws SQLException, ClassNotFoundException;
 
 	/**
 	 * Kiểm tra loginName đã tồn tại trong DB chưa
@@ -117,21 +130,19 @@ public interface TblUserLogic {
 	/**
 	 * Kiểm tra xem đối tượng đang thao tác có phải là admin hay không
 	 * 
-	 * @param loginName
-	 *            tên đăng nhập ở màn hình login
+	 * @param loginName : tên đăng nhập ở màn hình login
+	 *            
 	 * @return true nếu đúng admin trong DB, false nếu không
 	 * @throws SQLException
-	 *             lỗi SQl
 	 * @throws ClassNotFoundException
-	 *             lỗi không tìm thấy DRIVER
 	 */
 	boolean checkLogin(String loginName) throws SQLException, ClassNotFoundException;
 
 	/**
 	 * Lấy về 1 userInfor
 	 * 
-	 * @param userId
-	 *            userId của User muốn lấy về
+	 * @param userId : userId của User muốn lấy về
+	 *            
 	 * @return một đối tượng userInfor
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -141,8 +152,8 @@ public interface TblUserLogic {
 	/**
 	 * Kiểm tra xem userid có tồn tại trong DB hay ko true: có; false: không
 	 * 
-	 * @param userId
-	 *            id của user muốn kiểm tra
+	 * @param userId : id của user muốn kiểm tra
+	 *            
 	 * @return true nếu id có tồn tại false ngược lại
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -152,8 +163,8 @@ public interface TblUserLogic {
 	/**
 	 * hàm thực hiện edit User
 	 * 
-	 * @param userInfor
-	 *            userInfor muốn thay đổi
+	 * @param userInfor : userInfor muốn thay đổi
+	 *            
 	 * @return true nếu update thành công false nếu không
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -166,8 +177,8 @@ public interface TblUserLogic {
 	/**
 	 * Hàm lấy về đối tượng tbluser
 	 * 
-	 * @param userId
-	 *            id của user muốn lấy rule
+	 * @param userId : id của user muốn lấy rule
+	 *            
 	 * @return một đối tượng tblUser
 	 * @throws ClassNotFoundException
 	 *             Lỗi load DRIVER
@@ -179,8 +190,8 @@ public interface TblUserLogic {
 	/**
 	 * Hàm xóa một user
 	 * 
-	 * @param userId
-	 *            id của user cần xóa
+	 * @param userId : id của user cần xóa
+	 *            
 	 * @return true nếu xóa thành công, false nếu không
 	 * @throws ClassNotFoundException
 	 *             lỗi load DRIVER

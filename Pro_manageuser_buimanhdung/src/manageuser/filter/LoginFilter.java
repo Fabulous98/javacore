@@ -57,7 +57,7 @@ public class LoginFilter implements Filter {
 			if (checkLogin && checkLoginRequest) {
 				// Chuyển đến màn hình ADM002
 				resp.sendRedirect(req.getContextPath() + Constant.URL_LIST_USER);
-				// Nếu checkLogin = true hoặc checkLoginRequest = true thì cho
+				// Nếu checkLoginRequest = true thì cho
 				// qua
 			} else if (checkLogin || checkLoginRequest) {
 				chain.doFilter(request, response);
@@ -66,13 +66,13 @@ public class LoginFilter implements Filter {
 				resp.sendRedirect(contextPath);
 			}
 		} catch (Exception e) {
-			// <!-- Start fix bug ID 70 – ThoaDT 2019/12/25 -->
+			
 			System.out.println("LogFilter - doFilter " + e.getMessage());
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse resp = (HttpServletResponse) response;
 			// Chuyển đến trang system error
 			resp.sendRedirect(req.getContextPath() + Constant.URL_ERROR);
-			// <!-- End fix bug ID 73 – ThoaDT 2019/12/25 -->
+			
 		}
 	}
 

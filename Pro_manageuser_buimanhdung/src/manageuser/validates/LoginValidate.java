@@ -16,6 +16,7 @@ import manageuser.properties.MessageErrorProperties;
 import manageuser.utils.Constant;
 
 /**
+ * Class chứa các phương thức validate login
  * @author MDung
  *
  */
@@ -23,10 +24,10 @@ public class LoginValidate {
 	/**
 	 * Hàm validate tên đăng nhập và mật khẩu
 	 * 
-	 * @param username
-	 *            tên đăng nhập
-	 * @param password
-	 *            mật khẩu
+	 * @param username : tên đăng nhập
+	 *            
+	 * @param password : mật khẩu
+	 *            
 	 * @return một list các lỗi
 	 * @throws NoSuchAlgorithmException
 	 * @throws UnsupportedEncodingException

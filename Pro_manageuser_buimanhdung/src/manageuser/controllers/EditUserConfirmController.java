@@ -24,51 +24,57 @@ import manageuser.utils.Common;
 import manageuser.utils.Constant;
 
 /**
- * Servlet implementation class EditUserConfirmController
+ * Controller Xử lí khi click confirm từ 3 sang 4 và click Ok ở ADM004
  */
 public class EditUserConfirmController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Xử lí khi click confirm từ 3-4
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			// Lấy ra session phiên hiện tại nếu phiên tồn tại và nếu không có
-			// phiên hợp lệ, phiên mới sẽ không được tạo, nó sẽ trả về null.
+			// Lấy ra session phiên hiện tại, trả về null nếu không có session
 			HttpSession session = request.getSession(false);
-			// Kiểm tra xem có phải từ màn hình 03 sang không
-			if (Constant.OK.equals(session.getAttribute(Constant.CHECK_03_04))) {
-				// Xóa session
-				session.removeAttribute(Constant.CHECK_03_04);
+			// Kiểm tra có phải từ màn hình 003 sang hay không
+			if (Constant.OK.equals(session.getAttribute(Constant.CHECK_MOVE))) {
+				
 				// Khởi tạo đối tượng TblUserInfor
 				TblUserInfor userInfor = new TblUserInfor();
-				String key = "";
-				// Lấy biến key từ request về
+				
+				// Khởi tạo biến key
+				String key = Constant.DEFAULT_STRING;
+				
+				// Lấy key từ request về
 				if (request.getParameter(Constant.KEY) != null) {
 					key = request.getParameter(Constant.KEY);
 				}
-				// Lấy userInfor được lưu trên session
+				
+				// Lấy userInfor trên session
 				userInfor = (TblUserInfor) session.getAttribute(Constant.USER_INFOR + key);
 
-				// Khởi tạo các đối tượng để từ group_id có groupName và từ
-				// code_Level có nameLevel
+				// Khởi tạo các đối tượng để lấy groupName từ group_id
 				MstGroupLogic mstGroupLogic = new MstGroupLogicImpl();
 				MstGroup mstGroup = new MstGroup();
+				
 				// Gọi hàm getMstGroupById để lấy về một đối tượng mstGroup
 				mstGroup = mstGroupLogic.getMstGroupById(userInfor.getGroupId());
-				// Set giá trị setGroupName và nameLevel cho userInfor
+				
+				// Set giá trị groupName cho userInfor
 				userInfor.setGroupName(mstGroup.getGroupName());
+				
 				// Kiểm tra người dùng có chọn codeLevel không
 				if (Common.checkCodelevel(userInfor.getCodeLevel())) {
+					// Khởi tạo các đối tượng để lấy nameLevel từ codeLevel
 					MstJapanLogic mstJapanLogic = new MstJapanLogicImpl();
 					MstJapan mstJapan = new MstJapan();
-					// Gọi hàm getMstJapanByCodeLevel để lấy về một đối tượng
-					// mstJapan
+					// Lấy đối tượng MstJapan theo codeLevel
 					mstJapan = mstJapanLogic.getMstJapanByCodeLevel(userInfor.getCodeLevel());
+					// Set nameLevel cho userInfor
 					userInfor.setNameLevel(mstJapan.getNameLevel());
 				}
 				// set các giá trị lên request
@@ -77,9 +83,9 @@ public class EditUserConfirmController extends HttpServlet {
 				// Chuyển đến trang ADM004
 				RequestDispatcher rs = request.getRequestDispatcher(Constant.URL_ADM004);
 				rs.forward(request, response);
-				// Ngược lại thì trả về Màn hình SyStem error
+				
+				// Nếu không phải từ 003 sang 004 thì chuyển đến SyStem error
 			} else {
-				// CHuyển đến màn hình System error
 				response.sendRedirect(request.getContextPath() + Constant.URL_ERROR);
 			}
 
@@ -89,11 +95,12 @@ public class EditUserConfirmController extends HttpServlet {
 					+ e.getStackTrace()[0].getMethodName() + ", Error: " + e.getMessage());
 			// Chuyển đến trang system Eror
 			response.sendRedirect(request.getContextPath() + Constant.URL_ERROR);
-		}
+		}	
 	}
 
 	/**
-	 * Xử lí trường hợp O4 click OK
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -109,25 +116,27 @@ public class EditUserConfirmController extends HttpServlet {
 			String key = request.getParameter(Constant.KEY);
 			// Lấy đối tượng TblUserInfor trên session
 			TblUserInfor userInfor = (TblUserInfor) session.getAttribute(Constant.USER_INFOR + key);
-			// Xóa session userInfor
+			// Xóa trên session userInfor, originalEmail
 			session.removeAttribute(Constant.USER_INFOR + key);
-			// Khởi tạo biến chứa id và email của user
+			// Khởi tạo biến chứa id của user
 			int userId = userInfor.getUserId();
+			// Khởi tạo biến chứa email của user
 			String email = userInfor.getEmail();
-			//Kiểm tra xem email có bị trùng không và user có tồn tại không
-				if ( tblUserLogic.checkExistedUserById(userId) && !tblUserLogic.checkEmail(email, userId) ) {
+			//Kiểm tra xem email nếu sửa thì có bị trùng không và user có tồn tại không
+				if ( tblUserLogic.checkExistedUserById(userId) && !tblUserLogic.checkExistEmail(email, userId) ) {
 					// Kiểm tra user có tồn tại trong bảng detail không
-					boolean checkDetailById = tblDetailUserJapanLogic.checkExitDetailUserJapan(userInfor.getUserId());
+					boolean checkDetail = tblDetailUserJapanLogic.checkExistDetailUserJapan(userInfor.getUserId());
 					// thì thực hiện update dữ liệu vào DB
-					tblUserLogic.updateUser(userInfor, checkDetailById);
+					tblUserLogic.updateUser(userInfor, checkDetail);
 					// Chuyển đến màn hình ADM006 với thông báo thành công
 					url = Constant.SUCCESS + Constant.EDIT_SUCCESS;
-					// Nếu update thành công
-				} else {
-					// Nếu email tồn tại hiển thị màn hình lỗi đã tồn tại email
-					if (tblUserLogic.checkEmail(email, userId)) {
+					// Nếu tồn tại user nhưng email đã tồn tại
+				} else if(tblUserLogic.checkExistedUserById(userId)) {
+					// Thì hiển thị màn hình lỗi đã tồn tại email
 						url = Constant.URL_ERROR + Constant.ERROR_003_EMAIL;
-					}
+					// nếu không tồn tại user ( đã xóa )
+				} else {
+					url = Constant.URL_ERROR + Constant.ERROR_SYSTEM;
 				}
 			
 		} catch (Exception e) {
@@ -135,7 +144,7 @@ public class EditUserConfirmController extends HttpServlet {
 			System.out.println("Class: " + this.getClass().getName() + ", Method: "
 					+ e.getStackTrace()[0].getMethodName() + ", Error: " + e.getMessage());
 			// Chuyển đến trang lỗi
-			url = Constant.URL_ERROR;
+			url = Constant.URL_ERROR + Constant.ERROR_SYSTEM;
 
 		}
 		// Chuyển đến 1 url

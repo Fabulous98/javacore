@@ -39,7 +39,8 @@
 						</tr>
 						<tr>
 							<td class="lbl_left">グループ:</td>
-							<td align="left"><select name="groupId"
+							<td align="left">
+							<select name="groupId"
 								style="max-width: 79px">
 									<option value="0">全て</option>
 									<c:forEach items="${listGroup}" var="listMstGroup">
@@ -54,10 +55,67 @@
 										</c:choose>
 									</c:forEach>
 							</select></td>
-							<td align="left"><input class="btn" type="submit" value="検索" />
-								<a href="addUserInput.do?action=default""> <input
-									class="btn" type="button" value="新規追加"></a></td>
+							
+								<td></td>
 						</tr>
+						
+						<tr>
+							<c:set var = "defaultCheck" scope = "session" value = "0"/>
+							<td class="lbl_left">生年月日:&emsp;&emsp; &ensp;
+							<input type="checkbox" id="byYear" name="byYear" value= "1"
+							<c:if test="${byYear != defaultCheck}">
+							checked
+							</c:if>>
+							
+							</td>
+								<td align="left">
+								<select name="yearBirth">
+										<c:forEach items="${listYear}" var="birthYear">
+											<c:choose>
+											<c:when test="${birthYear==yearBirth}">
+												<option value="${birthYear}" selected="selected">${fn:escapeXml(birthYear)}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${birthYear}">${fn:escapeXml(birthYear)}</option>
+											</c:otherwise>
+										</c:choose>
+										</c:forEach>
+								</select><input type="checkbox" id="byMonth" name="byMonth" value="1"
+								<c:if test="${byMonth != defaultCheck}">
+								checked
+								</c:if>><select name="monthBirth">
+										<c:forEach items="${listMonth}" var="birthMonth">
+											<c:choose>
+											<c:when test="${birthMonth==monthBirth}">
+												<option value="${birthMonth}" selected="selected">${fn:escapeXml(birthMonth)}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${birthMonth}">${fn:escapeXml(birthMonth)}</option>
+											</c:otherwise>
+										</c:choose>
+										</c:forEach>
+								</select><input type="checkbox" id="byDate" name="byDate" value="1"
+								<c:if test="${byDate != defaultCheck}">
+								checked
+								</c:if>>
+							<span class="checkmark"></span><select name="dateBirth">
+										<c:forEach items="${listDate}" var="birthDate">
+											<c:choose>
+											<c:when test="${birthDate==dateBirth}">
+												<option value="${birthDate}" selected="selected">${fn:escapeXml(birthDate)}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${birthDate}">${fn:escapeXml(birthDate)}</option>
+											</c:otherwise>
+										</c:choose>
+										</c:forEach>
+								</select></td>
+							<td align="left">
+							&emsp;<input class="btn" type="submit" value="検索" />
+								
+								<input class="btn" type="button" value="新規追加 " onclick="javascript:location.href='addUserInput.do'"></td>
+						</tr>
+						
 						<tr>
 							<input name="action" value="search" style="display: none" />
 						</tr>
@@ -73,18 +131,25 @@
 		<c:param name="action" value="sort"></c:param>
 		<c:param name="fullName" value="${fn:escapeXml(fullName)}"></c:param>
 		<c:param name="groupId" value="${fn:escapeXml(groupId)}"></c:param>
+		<c:param name="yearBirth" value="${fn:escapeXml(yearBirth)}"></c:param>
+		<c:param name="monthBirth" value="${fn:escapeXml(monthBirth)}"></c:param>
+		<c:param name="dateBirth" value="${fn:escapeXml(dateBirth)}"></c:param>
+		<c:param name="byYear" value="${fn:escapeXml(byYear)}"></c:param>
+		<c:param name="byMonth" value="${fn:escapeXml(byMonth)}"></c:param>
+		<c:param name="byDate" value="${fn:escapeXml(byDate)}"></c:param>
 		<c:param name="currentPage" value="${currentPage}"></c:param>
 	</c:url>
 
 
 	<!-- Begin vung hien thi tiltle của bảng -->
+	<c:if test="${not empty listTblUserInfor}">
 	<table class="tbl_list" border="1" cellpadding="4" cellspacing="0"
 		width="80%">
 
 		<tr class="tr2">
 			<th align="center" width="20px">ID</th>
 			<th align="left">氏名<a
-				href="${url_sort}&sortType=fullName&sortValue=${sortByFullName == 'ASC' ? 'DESC' : 'ASC'}">
+				href="${url_sort}&sort_type=full_name&sortValue=${sortByFullName == 'ASC' ? 'DESC' : 'ASC'}">
 					${sortByFullName == 'ASC' ?'▲▽'  : '△▼' } </a>
 			</th>
 			<th align="left">生年月日</th>
@@ -92,15 +157,16 @@
 			<th align="left">メールアドレス</th>
 			<th align="left" width="70px">電話番号</th>
 			<th align="left">日本語能力 <a
-				href="${url_sort}&sortType=codeLevel&sortValue=${sortByCodeLevel == 'ASC' ? 'DESC' : 'ASC'}">
-					${sortByCodeLevel == 'ASC' ?'▲▽'  : '△▼' } </a>
+				href="${url_sort}&sort_type=code_level&sortValue=${sortByCodeLevel == 'DESC' ? 'ASC' : 'DESC'}">
+					${sortByCodeLevel == 'DESC' ?'▲▽'  : '△▼' } </a>
 			</th>
 			<th align="left">失効日 <a
-				href="${url_sort}&sortType=endDate&sortValue=${sortByEndDate == 'DESC' ? 'ASC' : 'DESC'}">
+				href="${url_sort}&sort_type=end_date&sortValue=${sortByEndDate == 'DESC' ? 'ASC' : 'DESC'}">
 					${sortByEndDate == 'DESC' ?'△▼'  : '▲▽'} </a>
 			</th>
 			<th align="left">点数</th>
 		</tr>
+		<!-- End vung hien thi tiltle của bảng -->
 		<!-- Begin vung hien thi list user -->
 		<c:forEach items="${listTblUserInfor}" var="listUser">
 			<tr style="white-space: nowrap;">
@@ -141,6 +207,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+	</c:if>
 	<!-- End vung hien thi danh sach user -->
 	<!--  vung thong thong bao loi -->
 	<c:if test="${empty listTblUserInfor}">
@@ -154,7 +221,13 @@
 				<c:param name="action" value="paging"></c:param>
 				<c:param name="fullName" value="${fullName}"></c:param>
 				<c:param name="groupId" value="${groupId}"></c:param>
-				<c:param name="sortType" value="${sortType}"></c:param>
+				<c:param name="yearBirth" value="${yearBirth}"></c:param>
+				<c:param name="monthBirth" value="${monthBirth}"></c:param>
+				<c:param name="dateBirth" value="${dateBirth}"></c:param>
+				<c:param name="byYear" value="${byYear}"></c:param>
+				<c:param name="byMonth" value="${byMonth}"></c:param>
+				<c:param name="byDate" value="${byDate}"></c:param>
+				<c:param name="sort_type" value="${sort_type}"></c:param>
 				<c:param name="sortByFullName" value="${sortByFullName}"></c:param>
 				<c:param name="sortByCodeLevel" value="${sortByCodeLevel}"></c:param>
 				<c:param name="sortByEndDate" value="${sortByEndDate}"></c:param>

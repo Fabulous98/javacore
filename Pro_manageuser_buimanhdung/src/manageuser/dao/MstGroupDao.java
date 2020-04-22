@@ -19,18 +19,18 @@ public interface MstGroupDao {
 	 * Hàm lất tất cả các nhóm
 	 * 
 	 * @return danh sách các nhóm trong DB
-	 * @throws SQLException
-	 *             ném ngoại lệ SQLException
-	 * @throws ClassNotFoundException
-	 *             ném ngoại lệ ClassNotFoundException
+	 * @throws SQLException : ném ngoại lệ SQLException
+	 *             
+	 * @throws ClassNotFoundException : ném ngoại lệ ClassNotFoundException
+	 *             
 	 */
 	List<MstGroup> getAllMstGroup() throws SQLException, ClassNotFoundException;
 
 	/**
 	 * Lấy về mstGroup khi biết ID
 	 * 
-	 * @param groupId
-	 *            id nhóm
+	 * @param groupId : id nhóm
+	 *            
 	 * @return một đối tượng mstGroup
 	 * @throws SQLException
 	 * @throws ClassNotFoundException

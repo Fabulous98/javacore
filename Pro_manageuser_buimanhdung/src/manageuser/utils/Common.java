@@ -5,12 +5,10 @@
 package manageuser.utils;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,20 +32,20 @@ import manageuser.logics.impl.TblUserLogicImpl;
 import manageuser.properties.ConfigProperties;
 
 /**
+ * Class chứa các phương thức Common
+ * 
  * @author MDung
  *
  */
 public class Common {
-	// Khởi tạo columSort chứa các cột của tblUserInfor
-		private static List<String> columnSort = new ArrayList<>();
 
 		/**
 		 * Mã hóa password theo SHA-1
 		 * 
-		 * @param password
-		 *            là mật khẩu cần mã hóa
-		 * @param salt
-		 *            giá trị thêm vào mật khấu để mã hóa
+		 * @param password : là mật khẩu cần mã hóa
+		 *            
+		 * @param salt : giá trị thêm vào mật khấu để mã hóa
+		 *            
 		 * @return mật khẩu sau khi đã được mã hóa
 		 * @throws NoSuchAlgorithmException
 		 * @throws UnsupportedEncodingException
@@ -74,10 +72,10 @@ public class Common {
 		/**
 		 * Hàm kiểm tra xem 2 chuỗi string có giống nhau hay không
 		 * 
-		 * @param str1
-		 *            chuỗi cần so sánh
-		 * @param str2
-		 *            chuỗi so sánh
+		 * @param str1 : chuỗi cần so sánh
+		 *            
+		 * @param str2 : chuỗi so sánh
+		 *            
 		 * @return true nếu 2 chuỗi giống nhau, false nếu hai chuỗi khác nhau
 		 */
 		public static boolean compareString(String str1, String str2) {
@@ -93,10 +91,10 @@ public class Common {
 		}
 
 		/**
-		 * Kiểm tra login
+		 * Kiểm tra login xem có là admin hay không
 		 * 
-		 * @param session
-		 *            session lấy về
+		 * @param session : session lấy về
+		 *            
 		 * @return true nếu login đúng false nếu sai
 		 * @throws ClassNotFoundException
 		 * @throws SQLException
@@ -107,7 +105,7 @@ public class Common {
 				// Nếu sesion khác null
 				if (session != null) {
 					// Gán giá trị cho biến loginName là session login
-					String loginName = (String) session.getAttribute(Constant.SESSION_LOGIN);
+					String loginName = (String) session.getAttribute("username");
 					// Nếu session login khác rỗng ( đã đăng nhập)
 					if (loginName != null && !loginName.isEmpty()) {
 						TblUserLogicImpl tblUserLogic = new TblUserLogicImpl();
@@ -127,136 +125,60 @@ public class Common {
 			// Trả về kết quả true nếu đã đăng nhập và false nếu chưa
 			return existUser;
 		}
-
+		
+		/**
+		 * Thêm lỗi vào danh sách
+		 * 
+		 * @param list : danh sách muốn thêm lỗi
+		 *            
+		 * @param err : lỗi muốn thêm
+		 *            
+		 * @return danh sách lỗi
+		 */
+		public static List<String> addListError(List<String> list, String err) {
+			// Nếu có lỗi thì thêm lỗi vào list
+			if (!Constant.DEFAULT_STRING.equals(err) && err != null) {
+				list.add(err);
+			}
+			return list;
+		}
+		
 		/**
 		 * ham chuyen cac ki tu dac biet thanh cac chuoi
 		 * 
-		 * @param value
-		 *            kí tự cần validate
+		 * @param value : kí tự cần validate
+		 *            
 		 * @return Kí tự sau khi validate
 		 */
 		public static String validateWildCard(String value) {
-			return value.replace("/", "!/").replace("%", "!%").replace("_", "!_").replace(";", "!;");
+			String result = "";
+			result = value.replaceAll("!", "!!").replaceAll("%", "!%").replaceAll("/", "!/").replaceAll("_", "!_").replaceAll(";", "!;");
+			return result;
 		}
 
 		/**
 		 * Hàm chuyển chuỗi thành số
 		 * 
-		 * @param number
-		 *            chuỗi cần chuyển
-		 * @param defaultValue
-		 *            giá trị default nếu chuỗi truyền vào không phải số
+		 * @param number : chuỗi cần chuyển
+		 *            
+		 * @param defaultValue : giá trị default nếu chuỗi truyền vào không phải số
+		 *            
 		 * @return số sau khi ép kiểu nếu chuỗi truyền vào là số, giá trị default
 		 *         nếu chuỗi truyền vào không phải số
 		 */
 		public static int convertStringToInt(String number, int defaultValue) {
-			int value;
+			int value = defaultValue;
 			try {
-				// Trả về 1 số
-				value = Integer.parseInt(number);
-				// lấy trị tuyệt đối nếu là số âm
-				if (value <= 0) {
-					value = defaultValue;
-				}
+				// Trả về 1 số không âm
+				value = Math.abs(Integer.parseInt(number));
 			} catch (NumberFormatException e) {
-				// nếu nhập vào là chuối không phải là số thì trả về 1 số mặc định
 				value = defaultValue;
 			}
 			return value;
 		}
-
+		
 		/**
-		 * Kiểm tra giá trị sắp xếp có phải là ASC và DESC không
-		 * 
-		 * @param valueOder
-		 *            giá trị sắp xếp truyền vào
-		 * @return giá trị ASC hoặc DESC nếu giá trị truyền vào đúng nếu không trả
-		 *         về null
-		 */
-		public static String getSort(String valueOder) {
-			// tạo một list string chứa giá trị để sắp xếp
-			List<String> orderByModes = new ArrayList<>();
-			orderByModes.add("ASC");
-			orderByModes.add("DESC");
-			String result;
-			// kiểm tra nếu giá trị truyền vào khác rỗng và giống với lệnh sắp xếp
-			// hay không
-			if (valueOder != null && orderByModes.contains(valueOder.toUpperCase())) {
-				result = valueOder.toUpperCase();
-			} else {
-				result = null;
-			}
-			return result;
-		}
-
-		/**
-		 * Hàm trả về một trường cần sắp xếp nếu trường ấy đúng trong cơ sở dữ liệu
-		 * nếu trường nhập vào không đúng với trường nào thuộc cơ sở dữ liệu thì trả
-		 * về null
-		 * 
-		 * @param sortField
-		 *            trường muốn sắp xếp
-		 * @return
-		 * @throws ClassNotFoundException
-		 */
-		public static String getColumeSort(String sortField) throws ClassNotFoundException {
-			// Thực hiện 1 lần và lấy ra toàn bộ mảng column cần order và add vào
-			// whitelist
-			try {
-				if (columnSort.size() == 0) {
-					String[] arrTableName = { "TblUserInfor" };
-					// Lấy ra toàn bộ các column (field) BO cần order by
-					for (String tableName : arrTableName) {
-						Class<?> cls = Class.forName("manageuser.entities." + tableName);
-						Field[] fieldArray = cls.getDeclaredFields();
-						for (int i = 0; i < fieldArray.length; i++) {
-							String fieldName = fieldArray[i].getName();
-							// add các column vào 1 mảng
-							columnSort.add(fieldName);
-						}
-					}
-				}
-				// Cắt ký tự "-" ở đầu field sort
-				String sort = sortField;
-				if (sort != null && sort.startsWith("-")) {
-					sort = sort.substring(1);
-				}
-				// Kiểm tra field cần order by có nằm trong danh sách field cho phép
-				// sort hay không
-				if (sort != null && columnSort.contains(sort)) {
-					return sort;
-				}
-				return null;
-			} catch (ClassNotFoundException e) {
-				System.out.println("Class: Common" + " Method: " + e.getStackTrace()[0].getMethodName() + ", Error: "
-						+ e.getMessage());
-				throw e;
-			}
-		}
-
-		/**
-		 * Lấy vị trí data cần lấy
-		 * 
-		 * @param currentPage
-		 *            Trang hiện tại
-		 * @param limit
-		 *            số lượng cần hiển thị trên 1 trang
-		 * @return vị trí offset cần lấy
-		 */
-		public static int getOffset(int currentPage, int limit) {
-			// Khởi tạo và gán vị trí data là 0
-			int offset = 0;
-			// Nếu page hiện tại lớn hơn 0
-			if (currentPage > 0) {
-				// vị trí cần lấy = số record*( page hiện tại - 1)
-				offset = limit * (currentPage - 1);
-			}
-			// Trả về vị trí cần lấy
-			return offset;
-		}
-
-		/**
-		 * Hàm lấy số lượng hiển thị bản ghi trên 1 trang
+		 * Hàm lấy số lượng hiển thị bản ghi trên 1 trang 
 		 * 
 		 * @return số lượng record cần lấy
 		 */
@@ -278,14 +200,32 @@ public class Common {
 			// trả về số page hiển thị
 			return limitPage;
 		}
+		
+		/**
+		 * Lấy vị trí data cần lấy
+		 * 
+		 * @param currentPage : Trang hiện tại
+		 *            
+		 * @param limit : số lượng cần hiển thị trên 1 trang
+		 *            
+		 * @return vị trí offset cần lấy
+		 */
+		public static int getOffset(int currentPage, int limit) {
+			// Khởi tạo và gán vị trí data là 0
+			int offset = 0;
+			// Nếu page hiện tại lớn hơn 0
+			if (currentPage > 0) {
+				// vị trí cần lấy = số record*( page hiện tại - 1)
+				offset = limit * (currentPage - 1);
+			}
+			// Trả về vị trí cần lấy
+			return offset;
+		}
 
 		/**
 		 * Tính tổng số trang
-		 * 
-		 * @param totalUser
-		 *            tổng số user
-		 * @param limit
-		 *            số record/page
+		 * @param totalUser : Tổng số user
+		 * @param limit : số record/page
 		 * @return tổng số trang cần hiển thị
 		 */
 		public static int getTotalPage(int totalUser, int limit) {
@@ -300,12 +240,12 @@ public class Common {
 		/**
 		 * phương thức hiển thị ở chuỗi paging theo trang hiện tại
 		 * 
-		 * @param totalUser
-		 *            tổng sô user
-		 * @param limit
-		 *            số lượng cần hiển thị trên 1 trang
-		 * @param currentPage
-		 *            trang hiện tại
+		 * @param totalUser : tổng sô user
+		 *            
+		 * @param limit : số lượng cần hiển thị trên 1 trang
+		 *            
+		 * @param currentPage : trang hiện tại
+		 *            
 		 */
 		public static List<Integer> getListPaging(int totalUser, int limit, int currentPage) {
 			int limitPage = getLimitPage();
@@ -335,10 +275,10 @@ public class Common {
 		/**
 		 * Tính nhóm hiện tại
 		 * 
-		 * @param curentPage
-		 *            page hiện tại
-		 * @param limitPage
-		 *            số page hiển thị
+		 * @param curentPage : page hiện tại
+		 *            
+		 * @param limitPage : số page hiển thị
+		 *            
 		 * @return nhóm hiện tại
 		 */
 		public static int getCurrentGroup(int curentPage, int limitPage) {
@@ -364,10 +304,8 @@ public class Common {
 		/**
 		 * Tìm số page max của nhóm hiện tại
 		 * 
-		 * @param currentGroup
-		 *            nhóm hiện tại
-		 * @param limitPage
-		 *            số page hiển thị
+		 * @param currentGroup : nhóm hiện tại
+		 * @param limitPage : số page hiển thị
 		 * @return page lớn nhất trong nhóm đang hiển thị
 		 */
 		public static int getMaxCurrentGroup(int currentGroup, int limitPage) {
@@ -412,10 +350,10 @@ public class Common {
 		/**
 		 * Lấy danh sách năm hiển thị
 		 * 
-		 * @param fromYear
-		 *            năm bắt đầu
-		 * @param toYear
-		 *            năm kết thúc
+		 * @param fromYear : năm bắt đầu
+		 * 
+		 * @param toYear : năm kết thúc
+		 * 
 		 * @return danh sách năm
 		 */
 		public static List<Integer> getListYear(int fromYear, int toYear) {
@@ -442,30 +380,30 @@ public class Common {
 		}
 
 		/**
-		 * Hàm lấy về thời gian hiện tại tính đến milisecond
+		 * Hàm lấy về thời gian hiện tại
 		 * 
-		 * @return Chuỗi thời gian milisecond
+		 * @return Chuỗi thời gian
 		 */
 		public static String getKey() {
-			// Khởi tạo biến salt
+			// Khởi tạo salt
 			String salt = "";
-			// Lấy về thời gian hiện tại theo milisecond kiểu long
+			// Lấy về thời gian hiện tại mili giây, kiểu long
 			long currentTime = System.currentTimeMillis();
-			// Ép kiểu nó về kiểu String
+			// Ép kiểu về kiểu String
 			salt = String.valueOf(currentTime);
-			// Trả về biến salt
+			// Trả về salt
 			return salt;
 		}
 
 		/**
 		 * Phương thức chuyển sang chuối string
 		 * 
-		 * @param year
-		 *            năm nhập vào
-		 * @param month
-		 *            tháng nhập vào
-		 * @param day
-		 *            ngày nhập vào
+		 * @param year : năm nhập vào
+		 *            
+		 * @param month : tháng nhập vào
+		 *            
+		 * @param day : ngày nhập vào
+		 *            
 		 * @return string trả về một chuỗi String
 		 */
 		public static String convertIntToTime(int year, int month, int day) {
@@ -479,8 +417,8 @@ public class Common {
 		/**
 		 * Phương thức kiểm tra chuổi nhập vào không rỗng
 		 * 
-		 * @param value
-		 *            giá trị nhập vào
+		 * @param value : giá trị nhập vào
+		 *            
 		 * @return true là chuỗi rỗng, false là chuỗi không rỗng
 		 */
 		public static boolean checkIsEmpty(String value) {
@@ -497,8 +435,8 @@ public class Common {
 		/**
 		 * Phương thức kiểm tra giá trị max của chuỗi nhập vào
 		 * 
-		 * @param value
-		 *            chuỗi nhập vào, giá trị tối đa của chuỗi
+		 * @param value : chuỗi nhập vào, giá trị tối đa của chuỗi
+		 *            
 		 * @return true là chuỗi vượt quá maxlenth, false là chuỗi không vượt quá
 		 *         maxlenth
 		 */
@@ -517,16 +455,16 @@ public class Common {
 		/**
 		 * Kiểm trả xem chuỗi input có phải 1 byte không
 		 * 
-		 * @param input
-		 *            chuỗi đầu vào
+		 * @param input : chuỗi đầu vào
+		 *            
 		 * @return true nếu là ký tự 1 byte false nếu không là ký tự 1 byte
 		 * @throws UnsupportedEncodingException
 		 */
 		public static boolean checkOneByte(String input) throws UnsupportedEncodingException {
 			boolean check = false;
 			int stringLength = input.length();
-			int byteLength = input.getBytes("ASCII").length;
-			if (stringLength == byteLength) {
+			final byte[] utf8Bytes = input.getBytes("UTF-8");
+			if (stringLength == utf8Bytes.length) {
 				check = true;
 			}
 			return check;
@@ -535,12 +473,12 @@ public class Common {
 		/**
 		 * Phương thức check độ dài trong khoảng
 		 * 
-		 * @param value
-		 *            giá trị chuỗi nhập vào
-		 * @param min
-		 *            giá trị bắt đầu trong khoảng
-		 * @param max
-		 *            giá trị kết thúc trong khoảng
+		 * @param value : giá trị chuỗi nhập vào
+		 *            
+		 * @param min : giá trị bắt đầu trong khoảng
+		 *            
+		 * @param max : giá trị kết thúc trong khoảng
+		 *            
 		 * @return true chuỗi nằm ngoài khoảng, false giá trị nằm trong khoảng
 		 */
 		public static boolean checkLength(String value, int min, int max) {
@@ -557,10 +495,10 @@ public class Common {
 		/**
 		 * Phương thức kiểm tra formmat
 		 *
-		 * @param input
-		 *            chuỗi nhập vào
-		 * @param value
-		 *            kiểu cần format
+		 * @param input : chuỗi nhập vào
+		 *            
+		 * @param value : kiểu cần format
+		 *            
 		 * @return false là sai kiểu nhập vào , true là đúng kiểu nhập vào
 		 */
 		public static boolean checkFormat(String input, String format) {
@@ -572,22 +510,17 @@ public class Common {
 		/**
 		 * Phương thức kiểm tra ngày nhập vào có đúng hay không
 		 * 
-		 * @param input
-		 *            Ngày nhập vào
+		 * @param input : Ngày nhập vào
+		 *            
 		 * @return trả về true, false
 		 */
 		public static boolean isValidateDate(String input) {
 			boolean checkValidate = false;
 			try {
-				DateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-				// Set false để kiểm tra tính hợp lệ của date
-				simpleDateFormat.setLenient(false);
-				// Parse String thành kiểu date
-				simpleDateFormat.parse(input);
-				// gán lại biến check = true
+				
 				checkValidate = true;
 				// nếu có ngoại lệ xảy ra
-			} catch (ParseException e) {
+			} catch (Exception e) {
 				// ghi log và xử lí
 				System.out.println(
 						"Class: Common" + "Method: " + e.getStackTrace()[0].getMethodName() + ", Error: " + e.getMessage());
@@ -599,11 +532,11 @@ public class Common {
 		/**
 		 * Phương thức chuyển từ chuỗi thành ngày
 		 * 
-		 * @param strDate
-		 *            Chuỗi nhập vào
+		 * @param strDate : Chuỗi nhập vào
+		 *            
 		 * @return trả về ngày tháng năm
 		 * @throws ParseException
-		 *             ngoại lệ
+		 *             
 		 */
 		public static Date toDate(String dateInput) throws ParseException {
 			// Khởi tạo kiểu date
@@ -624,27 +557,10 @@ public class Common {
 		}
 
 		/**
-		 * Thêm lỗi vào danh sách
-		 * 
-		 * @param list
-		 *            danh sách muốn thêm lỗi
-		 * @param err
-		 *            lỗi muốn thêm
-		 * @return danh sách lỗi
-		 */
-		public static List<String> addListError(List<String> list, String err) {
-			// nếu chuỗi lỗi là khác rỗng thì thêm lỗi vào list
-			if (!Constant.DEFAULT_STRING.equals(err) && err != null) {
-				list.add(err);
-			}
-			return list;
-		}
-
-		/**
 		 * Hàm tạo một đối tượng tblUser từ đối tượng tblUserInfor
 		 * 
-		 * @param tblUserInfor
-		 *            đối tượng tblUserInfor
+		 * @param tblUserInfor : đối tượng tblUserInfor
+		 *            
 		 * @return một đối tượng tblUser
 		 * @throws NoSuchAlgorithmException
 		 * @throws UnsupportedEncodingException
@@ -662,6 +578,7 @@ public class Common {
 				tblUser.setBirthday(tblUserInfor.getBirthday());
 				tblUser.setEmail(tblUserInfor.getEmail());
 				tblUser.setTel(tblUserInfor.getTel());
+				tblUser.setGender(tblUserInfor.getGender());
 				// Gắn giá trị cho pass
 				tblUser.setPassword(Common.hashEncrypt(tblUserInfor.getPass(), Common.getKey()));
 				tblUser.setSalt(Common.getKey());
@@ -679,8 +596,8 @@ public class Common {
 		/**
 		 * Hàm tạo một đối tượng TblDetailUserJapan từ đối tượng tblUserInfor
 		 * 
-		 * @param tblUserInfor
-		 *            đối tượng tblUserInfor
+		 * @param tblUserInfor : đối tượng tblUserInfor
+		 *            
 		 * @return trả về một đối tượng TblDetailUserJapan
 		 */
 		public static TblDetailUserJapan createDetailUser(TblUserInfor tblUserInfor) {
@@ -698,49 +615,12 @@ public class Common {
 			return tblDetail;
 		}
 
-		/**
-		 * Thực hiện set giá trị cho các hạng mục selectbox ở màn hình ADM003
-		 * 
-		 * @param request
-		 *            set giá trị lên req
-		 * @throws ClassNotFoundException
-		 * @throws SQLException
-		 */
-		public static void setDataLogic(HttpServletRequest request) throws ClassNotFoundException, SQLException {
-			try { // Khởi tạo đối tượng MstJapanLogic
-				MstJapanLogic mstJapanLogic = new MstJapanLogicImpl();
-				// Khởi tạo đối tượng
-				MstGroupLogic mstGroupLogic = new MstGroupLogicImpl();
-				// Khởi tạo 1 listMstJapan để chứa các nhóm
-				List<MstJapan> listMstJapan = mstJapanLogic.getAllMstJapan();
-				// Khởi tạo 1 listMstGroup để chứa các nhóm
-				List<MstGroup> listMstGroup = mstGroupLogic.getAllMstGroup();
-				// Khởi tạo listDate để lấy giá trị trong list để gắn lên request
-				List<Integer> listDate = Common.getListDay();
-				//// Khởi tạo listMonth để lấy giá trị trong list để gắn lên request
-				List<Integer> listMonth = Common.getListMonth();
-				//// Khởi tạo listYear để lấy giá trị trong list để gắn lên request
-				List<Integer> listYear = Common.getListYear(Constant.YEARS_START, Common.getYearNow() + 1);
-
-				// Set các list lên request để hiển thị trên selectbox của ADM003
-				request.setAttribute(Constant.LIST_MSTJAPAN, listMstJapan);
-				request.setAttribute(Constant.LIST_MSTGROUP, listMstGroup);
-				request.setAttribute(Constant.LIST_DATE, listDate);
-				request.setAttribute(Constant.LIST_MONTH, listMonth);
-				request.setAttribute(Constant.LIST_YEAR, listYear);
-			} catch (ClassNotFoundException | SQLException e) {
-				System.out.println("Class: Common" + " Method: " + e.getStackTrace()[0].getMethodName() + ", Error: "
-						+ e.getMessage());
-				// Ném ngoại
-				throw e;
-			}
-		}
 
 		/**
 		 * Kiểm tra userinfor có codeLevel hay không
 		 * 
-		 * @param tblUserInfor
-		 *            đối tượng muốn kiểm tra codeLevel
+		 * @param tblUserInfor : đối tượng muốn kiểm tra codeLevel
+		 *            
 		 * @return true nếu có codeLvel false nếu không
 		 */
 		public static boolean checkCodelevel(String codeLevel) {
@@ -753,5 +633,50 @@ public class Common {
 			}
 			// Trả về biến check
 			return check;
+		}
+		
+		/**
+		 * Thực hiện set giá trị cho các hạng mục selectbox ở màn hình ADM003
+		 * 
+		 * @param request : set giá trị lên req
+		 *            
+		 * @throws ClassNotFoundException
+		 * @throws SQLException
+		 */
+		public static void setDataLogic(HttpServletRequest request) throws ClassNotFoundException, SQLException {
+			
+			try { 
+				
+				// Khởi tạo đối tượng MstJapanLogic
+				MstJapanLogic mstJapanLogic = new MstJapanLogicImpl();
+				
+				// Khởi tạo đối tượng mstGroupLogic
+				MstGroupLogic mstGroupLogic = new MstGroupLogicImpl();
+				
+				// Khởi tạo 1 listMstJapan
+				List<MstJapan> listMstJapan = mstJapanLogic.getAllMstJapan();
+				
+				// Khởi tạo 1 listMstGroup
+				List<MstGroup> listMstGroup = mstGroupLogic.getAllMstGroup();
+				
+				// Khởi tạo listDate để gắn lên request
+				List<Integer> listDate = Common.getListDay();
+				// Khởi tạo listMonth để gắn lên request
+				List<Integer> listMonth = Common.getListMonth();
+				// Khởi tạo listYear để gắn lên request
+				List<Integer> listYear = Common.getListYear(Constant.YEARS_START, Common.getYearNow() + 1);
+
+				// Set các list lên request để hiển thị chúng trên selectbox của ADM003
+				request.setAttribute(Constant.LIST_MSTJAPAN, listMstJapan);
+				request.setAttribute(Constant.LIST_MSTGROUP, listMstGroup);
+				request.setAttribute(Constant.LIST_DATE, listDate);
+				request.setAttribute(Constant.LIST_MONTH, listMonth);
+				request.setAttribute(Constant.LIST_YEAR, listYear);
+			} catch (ClassNotFoundException | SQLException e) {
+				System.out.println("Class: Common" + " Method: " + e.getStackTrace()[0].getMethodName() + ", Error: "
+						+ e.getMessage());
+				// Ném ngoại lệ
+				throw e;
+			}
 		}
 }

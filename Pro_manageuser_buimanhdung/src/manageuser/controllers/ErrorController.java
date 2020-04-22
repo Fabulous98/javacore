@@ -11,18 +11,10 @@ import manageuser.properties.MessageErrorProperties;
 import manageuser.utils.Constant;
 
 /**
- * Servlet implementation class ErrorController
+ * Controller xử lý màn hình lỗi
  */
 public class ErrorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Hàm khởi tạo
-	 */
-	public ErrorController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -31,29 +23,29 @@ public class ErrorController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Lấy Type trên request
+		// Lấy Type lỗi trên request
 		String type = request.getParameter(Constant.TYPE);
 		// Tạo 1 chuỗi để chứa lỗi
-		String erroMessage = MessageErrorProperties.getValueByKey(Constant.SYSTEM_ERROR);
-		// Kiêm tra nếu type bằng insertSuccess
+		String errorMessage = MessageErrorProperties.getValueByKey(Constant.SYSTEM_ERROR);
+		// Kiêm tra nếu type khác rỗng thì type là lỗi nào
 		if (type != null) {
 			switch (type) {
-			case Constant.ER020:
-			case Constant.ER014:
-			case Constant.ER013:
-			case Constant.ERROR_003_LOGIN:
-			case Constant.ERROR_003_EMAIL:
-				// Thêm vào message với câu thông báo lỗi tương ứng
-				erroMessage = MessageErrorProperties.getValueByKey(type);
+			case "ERROR_020":
+			case "ERROR_014":
+			case "ERROR_013":
+			case "ERROR_003_LOGINNAME":
+			case "ERROR_003_EMAIL":
+				// Thêm vào errorMessage với câu thông báo lỗi tương ứng
+				errorMessage = MessageErrorProperties.getValueByKey(type);
 				break;
 			default:
 				// Thêm vào message với câu thông báo SYSTEM_ERROR lỗi hệ thống
 				// trong TH người dùng set câu thông báo khác lên request
-				erroMessage = MessageErrorProperties.getValueByKey(Constant.SYSTEM_ERROR);
+				errorMessage = MessageErrorProperties.getValueByKey(Constant.ERROR_SYSTEM);
 			}
 		}
 		// Set thông báo lên req để hiển thị lên màn hình
-		request.setAttribute("erroMessage", erroMessage);
+		request.setAttribute("errorMessage", errorMessage);
 		// Chuyển đến trang ADM006 để hiển thị thông báo
 		request.getRequestDispatcher(Constant.URL_SYS_ERR).forward(request, response);
 	}
