@@ -1,6 +1,7 @@
 package manageuser.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -249,18 +250,29 @@ public class ListUserController extends HttpServlet {
 	 * Thực hiện set giá trị cho hạng mục selectbox birthday ở màn hình ADM002
 	 * 
 	 * @param request : set giá trị lên request
+	 *            
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
 	 */
 	public static void setDataLogic(HttpServletRequest request){
-		// Khởi tạo listDate để gắn lên request
-		List<Integer> listDate = Common.getListDay();
-		// Khởi tạo listMonth để gắn lên request
-		List<Integer> listMonth = Common.getListMonth();
-		// Khởi tạo listYear để gắn lên request
-		List<Integer> listYear = Common.getListYear(Constant.YEARS_START, Common.getYearNow() + 1);
+		try { 
+			
+			// Khởi tạo listDate để gắn lên request
+			List<Integer> listDate = Common.getListDay();
+			// Khởi tạo listMonth để gắn lên request
+			List<Integer> listMonth = Common.getListMonth();
+			// Khởi tạo listYear để gắn lên request
+			List<Integer> listYear = Common.getListYear(Constant.YEARS_START, Common.getYearNow() + 1);
 
-		// Set các list lên request để hiển thị chúng trên selectbox của ADM002
-		request.setAttribute("listDate", listDate);
-		request.setAttribute("listMonth", listMonth);
-		request.setAttribute("listYear", listYear);
+			// Set các list lên request để hiển thị chúng trên selectbox của ADM002
+			request.setAttribute("listDate", listDate);
+			request.setAttribute("listMonth", listMonth);
+			request.setAttribute("listYear", listYear);
+		} catch (Exception e) {
+			System.out.println("Class: Common" + " Method: " + e.getStackTrace()[0].getMethodName() + ", Error: "
+					+ e.getMessage());
+			// Ném ngoại
+			throw e;
+		}
 	}
 }
