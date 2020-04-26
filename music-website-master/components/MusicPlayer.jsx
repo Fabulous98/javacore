@@ -26,15 +26,15 @@ export default class MusicPlayer extends React.Component {
                         <h1>Recordings</h1>
                     </Col>
                     <Col xs={12} sm={6}>
-                        <h3>Sadness DearestDearest <i>- released March 7, 202020</i></h3>
+                        <h3>Sadness Dearest <i>- released March 7, 2020</i></h3>
                         <iframe style={style} src={BandCamp.runaway} seamless>
-                            <a href='https://bmusics.bandcamp.com/track/sadness-dearest'>First Date</a>
+                            <a href='https://bmusics.bandcamp.com/track/sadness-dearest'>Sadness Dearest</a>
                         </iframe>
                     </Col>
                     <Col xs={12} sm={6}>
-                        <h3>Sadness Violin <i>- released March 7, 202020</i></h3>
+                        <h3>Sadness Violin <i>- released March 7, 2020</i></h3>
                         <iframe style={style} src={BandCamp.storm} seamless>
-                            <a href='https://bmusics.bandcamp.com/track/sadness-violin'>Luv Letters</a>
+                            <a href='https://bmusics.bandcamp.com/track/sadness-violin'>Sadness Violin</a>
                         </iframe>
                     </Col>
                 </Row>
